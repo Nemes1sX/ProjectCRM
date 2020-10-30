@@ -19,3 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('products', 'Api\ProductController@index');
+
+Route::prefix('ext/user')->group(function(){
+    Route::post('login', 'ExtensionController@login');
+    Route::get('refresh', 'ExtensionController@refresh');
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::get('test', 'ExtensionController@test');
+        Route::get('check', 'ExtensionController@check');
+        Route::post('testpost','ExtensionController@postdata');
+        Route::post('upload','ExtensionController@uploadImage');
+        Route::post('logout','ExtensionController@logout');
+
+    });
+
+});

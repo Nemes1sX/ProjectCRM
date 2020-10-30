@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Vue.js + Laravel SPA: Simple Boilerplate
 
 A very simple starter project with Laravel and Vue.js as a Single Page Application (SPA).
@@ -42,3 +43,7 @@ Basically, feel free to use and re-use any way you want.
 - Check out our adminpanel generator [QuickAdminPanel](https://quickadminpanel.com)
 - Subscribe to my [YouTube channel Laravel Business](https://www.youtube.com/channel/UCTuplgOBi6tJIlesIboymGA)
 - Enroll in my [Laravel Online Courses](https://laraveldaily.teachable.com/)
+=======
+# ProjectCRM
+ProjectCRM using Symfony and React
+>>>>>>> afaa0b0c6f63e89319611b7abc35ba7202cbcf46

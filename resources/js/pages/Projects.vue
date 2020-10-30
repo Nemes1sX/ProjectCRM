@@ -1,0 +1,20 @@
+<template>
+    <div class="row">
+        <sidebar></sidebar>
+        <div class="col-lg-9 mt-4">
+            <div class="row">
+                <h1>Hello Projects</h1>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Sidebar from "../components/Sidebar";
+
+    export default{
+        components: {
+            'sidebar': Sidebar
+        }
+    }
+</script>
