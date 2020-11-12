@@ -1,3 +1,4 @@
+<script src="../routes/index.js"></script>
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -33,6 +34,11 @@
                         <router-link active-class="active"
                                      exact :to="{ name: 'projects' }"
                                      class="nav-link">Projects</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link active-class="active"
+                                     exact :to="{ name: 'tasks' }"
+                                     class="nav-link">Tasks</router-link>
                     </li>
                 </ul>
             </div>

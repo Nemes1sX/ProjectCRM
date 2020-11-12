@@ -20,6 +20,32 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('products', 'Api\ProductController@index');
 
+
+Route::prefix('company')->group(function(){
+    Route::get('index', 'CompanyController@index');
+    Route::post('create', 'CompanyController@create');
+    Route::get('show/{id}', 'CompanyController@findCompany');
+    Route::post('update', 'CompanyController@updateCompany');
+    Route::post('delete', 'CompanyController@delete');
+});
+
+Route::prefix('project')->group(function(){
+    Route::get('index', 'ProjectController@index');
+    Route::post('create', 'ProjectController@create');
+    Route::get('show/{id}', 'ProjectController@findProject');
+    Route::post('update', 'ProjectController@updateProject');
+    Route::post('delete', 'ProjectController@delete');
+});
+Route::prefix('task')->group(function(){
+    Route::get('index', 'TaskController@index');
+    Route::post('create', 'TaskController@create');
+    Route::get('show/{id}', 'TaskController@findTask');
+    Route::post('update', 'TaskController@updateTask');
+    Route::post('delete', 'TaskController@deleteTask');
+});
+
+
+
 Route::prefix('ext/user')->group(function(){
     Route::post('login', 'ExtensionController@login');
     Route::get('refresh', 'ExtensionController@refresh');

@@ -1,3 +1,4 @@
+<script src="../../../../adminpv1/resources/js/app.js"></script>
 <template>
     <div class="row">
 

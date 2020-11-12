@@ -11,15 +11,18 @@
                         <li v-for="error in validationErrors">{{ error }}</li>
                     </ul>
                 </div>
-                <form autocomplete="off" @submit.prevent="createOrganization">
+                <form autocomplete="off" @submit.prevent="addCompany">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="name" id="name" class="form-control" placeholder="Organization" v-model="organization.name">
+                        <input type="name" id="name" class="form-control" placeholder="Organization" v-model="company.name">
                     </div>
-
+                    <div class="form-group">
+                        <label for="name">CEO Name</label>
+                        <input type="name" id="ceoname" class="form-control" placeholder="CEO Name" v-model="company.ceoname">
+                    </div>
                     <div class="form-group">
                         <label for="industry">Industry</label>
-                        <select class="form-control" v-model="organization.industry">
+                        <select class="form-control" v-model="company.industry">
                             <option  value="">-</option>
                             <option  value="Drinks">Drinks</option>
                             <option  value="Food">Food</option>
@@ -32,7 +35,7 @@
 
                     <div class="form-group" >
                         <label for="size">Size</label>
-                        <select class="form-control" v-model="organization.size">
+                        <select class="form-control" v-model="company.size">
                             <option  value="">-</option>
                             <option  value="10">10</option>
                             <option  value="10-50">10-50</option>
@@ -51,3 +54,40 @@
         </div>
     </div>
 </template>
+
+<script>
+    import DatePicker from 'vue2-datepicker';
+    import 'vue2-datepicker/index.css';
+    export default{
+        components: { DatePicker },
+        data() {
+            return {
+                company: {},
+                validationErrors: '',
+            }
+        },
+        computed:{
+            validationErrors(){
+                let errors = Object.values(this.errors)
+                errors = errors.flat()
+                return errors;
+            }
+        },
+        methods: {
+            addCompany(){
+                this.validationErrors = [];
+                this.axios
+                    .post('http://127.0.0.1:8000/api/company/create', this.company)
+                    .then( () =>{
+                       this.$router.push({name: 'company'})
+                    })
+                    .catch(error => {
+                        this.validationErrors = error.response.data.errors
+                    })
+                    .finally(() => this.loading = false)
+            }
+        },
+    }
+
+
+</script>

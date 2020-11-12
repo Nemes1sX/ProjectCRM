@@ -17,9 +17,10 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->foreignId('comapny_id')->references('id')->on('companies')
+            $table->string('status');
+            $table->date('startdate');
+            $table->date('enddate');
+            $table->foreignId('company_id')->references('id')->on('companies')
                 ->onCascade('delete');
 
             $table->timestamps();
