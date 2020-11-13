@@ -1,5 +1,4 @@
-<script src="../app.js"></script>
-<template>
+s<template>
     <div class="row">
         <sidebar></sidebar>
         <div class="col-lg-9 mt-4">

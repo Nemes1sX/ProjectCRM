@@ -16,13 +16,12 @@ class Project extends Model
         'enddate' => 'date:Y-m-d'
     ];
 
+    public function tasks()
+    {
+        return $this->hasMany('App\Task', 'project_id');
+    }
     public function company()
     {
         return $this->belongsTo('App\Company');
-    }
-
-    public function tasks()
-    {
-        return $this->hasMany('App\Task');
     }
 }

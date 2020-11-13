@@ -26,14 +26,6 @@
                         <label for="industry">Description</label>
                         <textarea class="form-control" cols="10" rows="15" placeholder="Description" v-model="project.description"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select class="form-control" v-model="project.status">
-                            <option value="to_do">To do</option>
-                            <option value="in_progress">In progress</option>
-                            <option value="done">Done</option>
-                        </select>
-                    </div>
                     <div class="form-group" >
                         <label for="task-start-date">Project Start Date</label>
                         <date-picker v-model="project.startdate" type="date" format="YYYY-MM-DD"></date-picker>

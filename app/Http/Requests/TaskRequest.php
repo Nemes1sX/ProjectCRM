@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ProjectDate;
+use App\Project;
 use Illuminate\Foundation\Http\FormRequest;
 
 
@@ -25,12 +25,13 @@ class TaskRequest extends FormRequest
      */
     public function rules()
     {
+        $project = Project::find(request('project_id'));
+
         return [
             'name' => 'required|max:40',
             'description' => 'required|max:40',
-            'startdate' => 'required|date',
-            //'enddate' => ['required' ,'date', 'after_or_equal:startdate', new ProjectDate($request->all())],
-            'enddate' => 'required|date|after_or_equal:startdate',
+            'startdate' => 'required|date|after_or_equal:'.$project->startdate->format('Y-m-d'),
+            'enddate' => 'required|date|after_or_equal:startdate|before_or_equal:'.$project->enddate->format('Y-m-d'),
         ];
     }
 }

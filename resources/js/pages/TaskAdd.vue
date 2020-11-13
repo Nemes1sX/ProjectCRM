@@ -14,11 +14,11 @@
                     </div>
                      <div class="form-group">
                         <label>Task start date</label>
-                        <date-picker v-model="task.startdate" type="datetime" format="YYYY-MM-DD HH:mm" valueType="format" :disabled-dates="disabledBefore"></date-picker>
+                        <date-picker v-model="task.startdate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></date-picker>
                     </div>
                     <div class="form-group">
                         <label>Task end date</label>
-                        <date-picker v-model="task.enddate" type="datetime" format="YYYY-MM-DD HH:mm"></date-picker>
+                        <date-picker v-model="task.enddate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></date-picker>
                     </div>
                     <div class="form-group">
                         <label>Assigned project</label>
@@ -44,8 +44,6 @@
                 disabledBefore: {
                     to: new Date(Date.now())
                 } ,
-                task: {status: "New"},
-                users: {},
                 projects: {}
             }
         },

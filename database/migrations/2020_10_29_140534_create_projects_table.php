@@ -17,11 +17,10 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('status');
+            $table->string('status')->default('To-do');
             $table->date('startdate');
             $table->date('enddate');
-            $table->foreignId('company_id')->references('id')->on('companies')
-                ->onCascade('delete');
+            $table->foreignId('company_id')->constrained();
 
             $table->timestamps();
         });

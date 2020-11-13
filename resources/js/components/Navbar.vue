@@ -9,37 +9,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <router-link active-class="active"
-                                     exact :to="{ name: 'home' }"
-                                     class="nav-link">Home</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link active-class="active"
-                                     exact :to="{ name: 'about' }"
-                                     class="nav-link">About</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link active-class="active"
-                                     exact :to="{ name: 'contact' }"
-                                     class="nav-link">Contact</router-link>
-                    </li>
-
-                    <li class="nav-item">
-                        <router-link active-class="active"
-                                     exact :to="{ name: 'companies' }"
-                                     class="nav-link">Companies</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link active-class="active"
-                                     exact :to="{ name: 'projects' }"
-                                     class="nav-link">Projects</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link active-class="active"
-                                     exact :to="{ name: 'tasks' }"
-                                     class="nav-link">Tasks</router-link>
-                    </li>
+                    <li class="nav-item" style="color: white;">Settings</li>
                 </ul>
             </div>
         </div>

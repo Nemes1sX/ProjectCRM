@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskOrderRequest;
 use App\Http\Requests\TaskRequest;
+use App\Http\Requests\TaskStatusRequest;
 use App\Task;
 use App\Project;
 
@@ -19,12 +21,10 @@ class TaskController extends Controller
     {
         $task = new Task();
 
-        if((Project::find($request->project_id)->enddate < $request->enddate) || (Project::find($request->project_id)->startdate > $request->startdate))
-            return response()->json(['error' => 'Task dates does not match project dates'], 422);
-
         $this->save($request, $task);
 
         return response()->json(['status' => 'success'], 200);
+
     }
 
     public function findTask($id)
@@ -43,6 +43,31 @@ class TaskController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
+    public function updateTaskStatus(TaskStatusRequest $request, $id){
+
+        $task = Task::find($id);
+        $task->status = $request->status;
+        $task->save();
+
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function updateTaskOrder(TaskOrderRequest $request)
+    {
+        $tasks = Task::all();
+
+        foreach ($tasks as $task){
+            $id = $task->id;
+            foreach($request->tasks as $tasksNew){
+                if($tasksNew['id'] == $id){
+                    $task->update(['order' => $tasksNew['order']]);
+                }
+            }
+        }
+
+        return response()-json(['status' => 'success'], 200);
+    }
+
     public function deleteTask($id)
     {
         $task = Task::find($id);
@@ -56,7 +81,6 @@ class TaskController extends Controller
     {
         $task->name = $request->name;
         $task->description = $request->description;
-        $task->status = $request->status;
         $task->project_id = $request->project_id;
         $task->startdate = $request->startdate;
         $task->enddate = $request->enddate;

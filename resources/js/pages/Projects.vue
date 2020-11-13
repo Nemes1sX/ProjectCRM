@@ -1,4 +1,3 @@
-<script src="../routes/index.js"></script>
 <template>
     <div class="row">
         <sidebar></sidebar>
@@ -18,7 +17,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="project in projects">
-                        <td>{{project.name}}</td>
+                        <td><router-link :to="{name: 'task.board', params: {id: project.id}}">{{project.name}}</router-link></td>
                         <td>{{project.description}}</td>
                         <td>{{project.company.name}}</td>
                         <td>{{project.status}}</td>
@@ -56,6 +55,7 @@
                 .get('http://127.0.0.1:8000/api/project/index')
                 .then( response => {
                     this.projects = response.data.projects;
+                    this.$router.push({name: 'projects' });
                 })
                 .catch(error => {
                     console.log(error);

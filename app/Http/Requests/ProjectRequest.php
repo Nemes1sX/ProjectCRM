@@ -27,7 +27,6 @@ class ProjectRequest extends FormRequest
             'name' => 'required|max:40',
             'description' => 'required',
             'company_id' => 'required',
-            'status' => 'required',
             'startdate' => 'required|date',
             'enddate' => 'required|after_or_equal:start_date',
         ];

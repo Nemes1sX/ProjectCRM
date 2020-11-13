@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProjectRequest;
+use
+    App\Http\Requests\ProjectRequest;
 use App\Project;
+use function GuzzleHttp\Promise\task;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class ProjectController extends Controller
 {
@@ -14,6 +18,31 @@ class ProjectController extends Controller
         $projects = Project::with('company')->get();
 
         return response()->json(['status' => 'success', 'projects' => $projects], 200);
+    }
+
+ /*   public function showCalendar()
+    {
+        $projects = Project::with('company')->get(['name', 'startdate', 'enddate']);
+
+        return response()->json(['status' => 'success', 'projects' => $projects], 200);
+    }*/
+
+    public function showTasks($id){
+
+        $tasks = Project::find($id)->tasks()->orderBy('order')->select('id','name','order','status')->get();
+
+        $tasksCompleted = $tasks->filter(function ($task, $key) {
+            return $task->status;
+        })->values();
+
+        $tasksNotCompleted = $tasks->filter(function ($task, $key) {
+           return ! $task->status;
+        })->values();
+
+
+        return response()->json(['status' => 'success',
+            'tasksCompleted' => $tasksCompleted,
+            'tasksNotCompleted' => $tasksNotCompleted], 200);
     }
 
     public function create(ProjectRequest $request)
@@ -62,4 +91,5 @@ class ProjectController extends Controller
 
 
     }
+
 }

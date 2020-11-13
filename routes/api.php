@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
 
 Route::get('products', 'Api\ProductController@index');
 
@@ -34,28 +34,19 @@ Route::prefix('project')->group(function(){
     Route::post('create', 'ProjectController@create');
     Route::get('show/{id}', 'ProjectController@findProject');
     Route::post('update', 'ProjectController@updateProject');
-    Route::post('delete', 'ProjectController@delete');
+    Route::delete('delete', 'ProjectController@delete');
+    Route::get('taskboard/{id}', 'ProjectController@showTasks');
+
 });
 Route::prefix('task')->group(function(){
     Route::get('index', 'TaskController@index');
-    Route::post('create', 'TaskController@create');
+    Route::post('create', 'TaskController@create')->name('task.create');
     Route::get('show/{id}', 'TaskController@findTask');
     Route::post('update', 'TaskController@updateTask');
     Route::post('delete', 'TaskController@deleteTask');
-});
-
-
-
-Route::prefix('ext/user')->group(function(){
-    Route::post('login', 'ExtensionController@login');
-    Route::get('refresh', 'ExtensionController@refresh');
-    Route::group(['middleware' => 'auth:api'], function(){
-        Route::get('test', 'ExtensionController@test');
-        Route::get('check', 'ExtensionController@check');
-        Route::post('testpost','ExtensionController@postdata');
-        Route::post('upload','ExtensionController@uploadImage');
-        Route::post('logout','ExtensionController@logout');
-
-    });
+    Route::patch('updatestatus/{id}', 'TaskController@updateTaskStatus');
+    Route::put('updateAll', 'TaskController@updateOrder');
 
 });
+
+Route::get('pythontest', 'ProjectController@testpython');
