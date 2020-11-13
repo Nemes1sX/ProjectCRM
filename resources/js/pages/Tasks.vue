@@ -19,9 +19,10 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Taskdate</th>
                 <th>Status</th>
-                <th>User</th>
+                <th>Project</th>
+                <th>Task start date</th>
+                <th>Task end date</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -30,10 +31,10 @@
               <tr v-for="task in tasks" :key="task.id">
                   <td>{{ task.name }}</td>
                   <td>{{ task.description }}</td>
+                  <td>{{ task.status }}</td>
                   <td>{{ task.project.name }}</td>
                   <td>{{ task.startdate }}</td>
                   <td>{{ task.enddate }}</td>
-                  <td>{{ task.status }}</td>
                 <td>
                     <div class="btn-group" role="group">
                         <router-link :to="{name: 'task.edit', params: { id: task.id }}" class="btn btn-primary">Edit
@@ -57,7 +58,7 @@
         },
         created() { //Fetch tasks
             this.axios
-                .get('http://127.0.0.1:8000/api/tasks')
+                .get('http://127.0.0.1:8000/api/task/index')
                 .then(response => {
                     this.tasks = response.data.tasks;
                 });

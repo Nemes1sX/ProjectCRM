@@ -2459,6 +2459,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2570,6 +2571,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2580,7 +2582,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     //Fetch tasks
-    this.axios.get('http://127.0.0.1:8000/api/tasks').then(function (response) {
+    this.axios.get('http://127.0.0.1:8000/api/task/index').then(function (response) {
       _this.tasks = response.data.tasks;
     });
   },
@@ -40373,8 +40375,8 @@ var render = function() {
                 _vm._v(" "),
                 _c("date-picker", {
                   attrs: {
-                    type: "datetime",
-                    format: "YYYY-MM-DD HH:mm",
+                    type: "date",
+                    format: "YYYY-MM-DD",
                     valueType: "format",
                     "disabled-dates": _vm.disabledBefore
                   },
@@ -40397,7 +40399,7 @@ var render = function() {
                 _c("label", [_vm._v("Task end date")]),
                 _vm._v(" "),
                 _c("date-picker", {
-                  attrs: { type: "datetime", format: "YYYY-MM-DD HH:mm" },
+                  attrs: { type: "date", format: "YYYY-MM-DD" },
                   model: {
                     value: _vm.task.enddate,
                     callback: function($$v) {
@@ -40602,13 +40604,13 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(task.description))]),
               _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(task.status))]),
+              _vm._v(" "),
               _c("td", [_vm._v(_vm._s(task.project.name))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(task.startdate))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(task.enddate))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(task.status))]),
               _vm._v(" "),
               _c("td", [
                 _c(
@@ -40662,11 +40664,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Taskdate")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("User")]),
+        _c("th", [_vm._v("Project")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Task start date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Task end date")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])

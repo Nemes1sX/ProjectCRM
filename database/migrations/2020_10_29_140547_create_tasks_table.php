@@ -18,8 +18,8 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('status');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('startdate');
+            $table->date('enddate');
             $table->foreignId('project_id')->references('id')->on('projects')
                     ->onCascade('delete');
            /* $table->foreignId('company_id')->references('id')->on('companies')
