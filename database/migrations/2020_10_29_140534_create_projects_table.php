@@ -21,7 +21,6 @@ class CreateProjectsTable extends Migration
             $table->date('startdate');
             $table->date('enddate');
             $table->foreignId('company_id')->constrained();
-
             $table->timestamps();
         });
     }

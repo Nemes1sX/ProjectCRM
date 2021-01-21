@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use
-    App\Http\Requests\ProjectRequest;
+use App\Company;
+use App\Http\Requests\ImportProjectRequest;
+use App\Http\Requests\ImportRequest;
+use App\Http\Requests\ProjectRequest;
 use App\Project;
 use function GuzzleHttp\Promise\task;
 use Illuminate\Http\Request;
@@ -78,6 +80,60 @@ class ProjectController extends Controller
 
         return response()->json(['status' => 'success', 'data' => $id], 200);
     }
+
+
+    public function importProjects(ImportProjectRequest $request, $company_id){
+        $path = $request->file('import_file')->getRealPath();
+
+        $data = array_map('str_getcsv', file($path));
+
+        $csvData = array_slice($data, 1);
+
+        for($i=0; $i<count($csvData); $i++){
+            Project::create([
+               'name' => $csvData[$i][0],
+                'description' => $csvData[$i][1],
+                'startdate' => $csvData[$i][2],
+                'enddate' => $csvData[$i][3],
+                'company_id' => $company_id,
+            ]);
+        }
+
+        return response()->json(['status' => 'Upload successfully'], 200);
+    }
+
+    public function exportProjects($company_id, $companyName){
+
+        $fileName = $companyName.'.csv';
+
+        $projects = Company::find($company_id)->with('projects');
+
+
+        $columns = array('Name', 'Description', 'Start Date', 'End Date');
+
+        $file = fopen($fileName, 'w');
+
+        fputcsv($file, $columns);
+            foreach ($projects as $project){
+               $row['Name'] = $project->name;
+               $row['Description'] = $project->description;
+               $row['Start Date'] = $project->startdate;
+               $row['End Date'] = $project->enddate;
+
+               fputcsv($file, $row['Name'], $row['Description'], $row['Start Date'], $row['End Date']);
+            }
+
+            fclose($file);
+
+
+
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+
+        return Response::download($file, $companyName.'.csv', $headers);
+    }
+
 
     private function save(Project $project, ProjectRequest $request)
     {

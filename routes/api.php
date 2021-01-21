@@ -27,6 +27,8 @@ Route::prefix('company')->group(function(){
     Route::get('show/{id}', 'CompanyController@findCompany');
     Route::post('update', 'CompanyController@updateCompany');
     Route::post('delete', 'CompanyController@delete');
+    Route::get('export', 'CompanyController@exportCompany');
+    Route::post('import', 'CompanyController@importCompany');
 });
 
 Route::prefix('project')->group(function(){
@@ -36,7 +38,8 @@ Route::prefix('project')->group(function(){
     Route::post('update', 'ProjectController@updateProject');
     Route::delete('delete', 'ProjectController@delete');
     Route::get('taskboard/{id}', 'ProjectController@showTasks');
-
+    Route::get('export/{id}/{comapnyname}', 'ProjectController@exportProjects');
+    Route::post('import', 'ProjectController@importProjects');
 });
 Route::prefix('task')->group(function(){
     Route::get('index', 'TaskController@index');

@@ -13,8 +13,8 @@
                 </div>
                 <form autocomplete="off" @submit.prevent="addProject">
                     <div class="form-group">
-                        <label>Assigned Company</label>
-                        <select class="form-control" v-model="project.company_id">
+                        <label for="company">Assigned Company</label>
+                        <select class="form-control" id="company" v-model="project.company_id">
                             <option v-for="company in companies"  v-bind:value="company.id">{{ company.name }}</option>
                         </select>
                     </div>
@@ -24,15 +24,15 @@
                     </div>
                     <div class="form-group">
                         <label for="industry">Description</label>
-                        <textarea class="form-control" cols="10" rows="15" placeholder="Description" v-model="project.description"></textarea>
+                        <textarea class="form-control" id="industry" cols="10" rows="15" placeholder="Description" v-model="project.description"></textarea>
                     </div>
                     <div class="form-group" >
                         <label for="task-start-date">Project Start Date</label>
-                        <date-picker v-model="project.startdate" type="date" format="YYYY-MM-DD"></date-picker>
+                        <b-form-datepicker id="task-start-date" v-model="project.startdate" type="date" format="YYYY-MM-DD"></b-form-datepicker>
                     </div>
                     <div class="form-group" >
                         <label for="task-end-date">Project End Date</label>
-                        <date-picker v-model="project.enddate" type="date" format="YYYY-MM-DD"></date-picker>
+                        <b-form-datepicker id="task-end-date" v-model="project.enddate" type="date" format="YYYY-MM-DD"></b-form-datepicker>
                     </div>
                     <button type="submit" class="btn btn-success form-group">Add Projecty</button>
 
@@ -45,10 +45,8 @@
 </template>
 
 <script>
-    import DatePicker from 'vue2-datepicker';
-    import 'vue2-datepicker/index.css';
+
     export default {
-    components: { DatePicker },
     data() {
         return {
             project: {},

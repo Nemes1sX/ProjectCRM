@@ -3,7 +3,13 @@ s<template>
         <sidebar></sidebar>
         <div class="col-lg-9 mt-4">
             <div class="row">
-                <router-link :to="{name: 'company.create'}" active-class="active" class="btn btn-success">Add Company</router-link>
+                <router-link :to="{name: 'company.create'}" active-class="active" class="btn btn-info">Add Company</router-link>
+                <button type="button" class="btn btn-success" @click="exportCompanies">Export Excel file</button>
+                    <label class="form-control-label"  for="file">Upload Excel File</label>
+                    <input type="file" ref="file" id="file" class="form-control" :class="{ ' is-invalid' : error.message }"  v-on:change="onFileChange()">
+                    <button type="submit" class="btn btn-success" v-on:click="importCompanies()">Upload</button>
+                <div v-if="error.message" class="invalid-feedback">
+                </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -16,7 +22,7 @@ s<template>
                     </thead>
                     <tbody>
                         <tr v-for="company in companies">
-                            <td>{{company.name}}</td>
+                            <td><router-link :to="{name: 'company.show', params: {id: company.id} }">{{company.name}}</router-link></td>
                             <td>{{company.ceoname}}</td>
                             <td>{{company.industry}}</td>
                             <td>{{company.size}}</td>
@@ -42,7 +48,9 @@ s<template>
         },
         data(){
             return{
+                error: {},
                 companies: {},
+                file: '',
             }
         },
         created(){
@@ -57,6 +65,43 @@ s<template>
                 .finally(() => this.loading = false)
         },
         methods:{
+            handleUpload(){
+                this.file = this.$refs.file.files[0];
+            },
+            importCompanies(){
+
+                var formData = new FormData();
+                formData.append('file', this.file);
+                this.axios
+                    .post('http://127.0.0.1:8000/api/company/import',{file: formData}, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
+                    .then(() => {
+                        windows.location.href = `company`
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                    .finally(() => this.loading = false)
+            },
+            exportCompanies(){
+                this.axios
+                    .get('http://127.0.0.1:8000/api/company/export', {
+                        responseType: 'blob'
+                    })
+                    .then(response => {
+                        const url = window.URL.createObjectURL(new Blob([response.data]))
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', 'companies.xlsx'); //or any other extension
+                        document.body.appendChild(link);
+                        link.click();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                    .finally(() => this.loading = false)
+            },
             deleteCompany(id){
                 this.axios
                     .delete(`http://127.0.0.1:8000/api/company/delete/${id}`)

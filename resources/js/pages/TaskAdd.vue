@@ -13,12 +13,12 @@
                         <textarea class="form-control" v-model="task.description"></textarea>
                     </div>
                      <div class="form-group">
-                        <label>Task start date</label>
-                        <date-picker v-model="task.startdate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></date-picker>
+                        <label for="task-start-date">Task start date</label>
+                        <b-form-datepicker id="task-start-date" v-model="task.startdate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></b-form-datepicker>
                     </div>
                     <div class="form-group">
-                        <label>Task end date</label>
-                        <date-picker v-model="task.enddate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></date-picker>
+                        <label for="task-end-date">Task end date</label>
+                        <b-form-datepicker id="task-end-date" v-model="task.enddate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></b-form-datepicker>
                     </div>
                     <div class="form-group">
                         <label>Assigned project</label>
@@ -34,11 +34,9 @@
 </template>
 
 <script>
-   import DatePicker from 'vue2-datepicker';
-    import 'vue2-datepicker/index.css';
+
     export default {
 
-        components: {DatePicker},
         data() {
             return {
                 disabledBefore: {

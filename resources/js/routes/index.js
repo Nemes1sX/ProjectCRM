@@ -1,8 +1,12 @@
+import VueRouter from 'vue-router'
+
+
 import Homepage from '../pages/Homepage.vue'
 import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
 import Companies from '../pages/Companies.vue'
 import CreateCompany from '../pages/CreateCompany.vue'
+import ShowComponent from '../pages/ShowCompany.vue'
 import Projects from '../pages/Projects.vue'
 import ProjectCalendar from '../pages/ProjectCalendar.vue'
 import CreateProject from '../pages/CreateProject.vue'
@@ -10,9 +14,7 @@ import Tasks from '../pages/Tasks.vue'
 import TaskBoard from '../pages/TaskBoard.vue'
 import TaskAdd from '../pages/TaskAdd.vue'
 
-export default {
-    mode: 'history',
-    routes: [
+const routes =  [
         {
             path: '/',
             name: 'home',
@@ -29,12 +31,12 @@ export default {
             component: Contact,
         },
         {
-            path: '/companies',
-            name: 'companies',
+            path: '/company',
+            name:  'company',
             component: Companies,
         },
         {
-            path: '/company/create',
+            path: '/create',
             name: 'company.create',
             component: CreateCompany,
         },
@@ -42,6 +44,12 @@ export default {
             path: '/company/edit',
             name: 'company.edit',
             component: CreateCompany,
+
+        },
+        {
+            path: '/company/show/:id',
+            name: 'company.show',
+            component: ShowComponent,
         },
         {
             path: '/projects',
@@ -59,12 +67,12 @@ export default {
             component: CreateProject,
         },
         {
-          path: 'taskboard/:id',
+          path: '/taskboard/:id',
           name: 'task.board',
           component: TaskBoard,
         },
         {
-          path: 'calendar',
+          path: '/calendar',
           name: 'project.calendar',
           component: ProjectCalendar,
         },
@@ -84,5 +92,10 @@ export default {
             name: 'task.edit',
             component: TaskAdd,
         }
-    ]
-}
+]
+const router = new VueRouter({
+    history: true,
+    mode: 'history',
+    routes,
+})
+export default router

@@ -44,7 +44,7 @@
         methods: {
             created(){
                 this.axios
-                    .get('http://localhost:8000/api/project/taskboard' + id)
+                    .get(`http://127.0.0.1:8000/api/project/taskboard/${this.$route.params.id}`)
                     .then( response => {
                         this.tasksNotCompleted = response.data.tasksNotCompleted;
                         this.tasksCompleted = response.data.tasksCompleted;

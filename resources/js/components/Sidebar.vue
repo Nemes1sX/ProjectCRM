@@ -15,7 +15,7 @@
                              exact :to="{ name: 'contact' }"
                              class="list-group-item">Contact</router-link>
                 <router-link active-class="active"
-                             exact :to="{ name: 'companies' }"
+                             exact :to="{ name: 'company' }"
                              class="list-group-item">Companies</router-link>
                 <router-link active-class="active"
                              exact :to="{ name: 'projects' }"
