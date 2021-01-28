@@ -1,0 +1,33 @@
+﻿,question,question_topic
+0,My printer is running out of ink,IT engineer
+1,Our software works very slow because of huge amount of queries,Software engineer
+2,"PC won't start (blue screen), can't boot/repair from USB",IT engineer
+3, The past few days the internet connection has been nonfunctional or very poor,IT engineer
+4,Windows 10 laptop but the computer screen goes black randomly,IT engineer
+5,My computer applications run slowly and they take longer than usual to start,IT engineer
+6,I keep getting annoying ads that are opening randomly or strange messages on my computer’s screen,IT engineer
+7,I keep getting annoying ads that are opening randomly or strange messages on my computer’s screen,IT engineer
+8,"My laptop keeps crashing when I watch Youtube videos or play games. It simply freezes, then a blue screen shows up.”",IT engineer
+9,"My laptop keeps crashing when I watch Youtube videos. It simply freezes, then a blue screen shows up.",IT engineer
+10,I started getting this popup message <You’re running out of disk space on Windows (C:),IT engineer
+11,"Sometimes, I see unusual error messages displayed on my computer.",IT engineer
+12,My PC is acting weird because I get unusual messages that appear unexpectedly.,IT engineer
+13,Our WordPress site running slow or slowly loading ,Software engineer
+14,"Bad PDF generated, PDF is generated but broken and cannot be oppened",Software engineer
+15,FPDF error: Missing or incorrect image file,Software engineer
+16,I get Null Pointer Exception using a invoice function,Software engineer
+17,"I log in to task board for the first time with 'admin' credentials, nothing seems to happen. ",Software engineer
+18,I have api auth issues. My token is not generated,Software engineer
+19,"I call this API locally it works fine and return the values.But when i call those APIs after deployment on server, always return Token Key is required.I put the accurate token key from database too.",Software engineer
+20,Doesn't calculate bills properly,Software engineer
+21,Website carousel images works very slowly,Software engineer
+22,I need to  call with customer company,Manager
+23,I need to prepare on-site meeting ,Manager
+24,We should discuss with customer about product requirements,Manager
+25,Need to prepare company sprint about prievous backlog,Manager
+26,We have to do series of cold calls,Manager
+27,We must promote partnership with customer,Manager
+28,Need to found some recruiments for our company,Manager
+29,We need to buy a server for a company,Manager
+30,Plan to do a live meeting with customers,Manager
+31,Need to negotiate with customer for software budger,Manager

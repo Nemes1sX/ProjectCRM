@@ -22,12 +22,12 @@ class ProjectController extends Controller
         return response()->json(['status' => 'success', 'projects' => $projects], 200);
     }
 
- /*   public function showCalendar()
+    public function showCalendar(Request $request)
     {
-        $projects = Project::with('company')->get(['name', 'startdate', 'enddate']);
+        $projects = Project::get(['name', 'startdate']);
 
         return response()->json(['status' => 'success', 'projects' => $projects], 200);
-    }*/
+    }
 
     public function showTasks($id){
 

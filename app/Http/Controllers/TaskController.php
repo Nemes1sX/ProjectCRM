@@ -65,7 +65,7 @@ class TaskController extends Controller
             }
         }
 
-        return response()-json(['status' => 'success'], 200);
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function deleteTask($id)

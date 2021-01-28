@@ -33,6 +33,7 @@ Route::prefix('company')->group(function(){
 
 Route::prefix('project')->group(function(){
     Route::get('index', 'ProjectController@index');
+    Route::get('showcalendar', 'ProjectController@showCalendar');
     Route::post('create', 'ProjectController@create');
     Route::get('show/{id}', 'ProjectController@findProject');
     Route::post('update', 'ProjectController@updateProject');
@@ -48,7 +49,7 @@ Route::prefix('task')->group(function(){
     Route::post('update', 'TaskController@updateTask');
     Route::post('delete', 'TaskController@deleteTask');
     Route::patch('updatestatus/{id}', 'TaskController@updateTaskStatus');
-    Route::put('updateAll', 'TaskController@updateOrder');
+    Route::put('updateAll', 'TaskController@updateTaskOrder');
 
 });
 

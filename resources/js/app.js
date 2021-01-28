@@ -3,7 +3,8 @@ require('./bootstrap');
 import Vue from 'vue'
 
 import VueRouter from 'vue-router'
-
+import 'fullcalendar/dist/fullcalendar.css';
+import FullCalendar from 'vue-full-calendar';
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 import VueAxios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -23,6 +24,7 @@ Vue.use(IconsPlugin)
 Vue.router = router
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+Vue.use(FullCalendar);
 
 
 

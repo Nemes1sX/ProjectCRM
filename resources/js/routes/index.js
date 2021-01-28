@@ -4,15 +4,16 @@ import VueRouter from 'vue-router'
 import Homepage from '../pages/Homepage.vue'
 import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
-import Companies from '../pages/Companies.vue'
-import CreateCompany from '../pages/CreateCompany.vue'
-import ShowComponent from '../pages/ShowCompany.vue'
-import Projects from '../pages/Projects.vue'
-import ProjectCalendar from '../pages/ProjectCalendar.vue'
-import CreateProject from '../pages/CreateProject.vue'
-import Tasks from '../pages/Tasks.vue'
-import TaskBoard from '../pages/TaskBoard.vue'
-import TaskAdd from '../pages/TaskAdd.vue'
+import Predict from '../pages/Predict.vue'
+import Companies from '../pages/companies/Companies.vue'
+import CreateCompany from '../pages/companies/CreateCompany.vue'
+import ShowComponent from '../pages/companies/ShowCompany.vue'
+import Projects from '../pages/projects/Projects.vue'
+import ProjectCalendar from '../pages/projects/ProjectCalendar.vue'
+import CreateProject from '../pages/projects/CreateProject.vue'
+import Tasks from '../pages/task/Tasks.vue'
+import TaskBoard from '../pages/task/TaskBoard.vue'
+import TaskAdd from '../pages/task/TaskAdd.vue'
 
 const routes =  [
         {
@@ -91,6 +92,11 @@ const routes =  [
             path: '/task/edit',
             name: 'task.edit',
             component: TaskAdd,
+        },
+        {
+            path: '/predict',
+            name: 'predict',
+            component: Predict,
         }
 ]
 const router = new VueRouter({
