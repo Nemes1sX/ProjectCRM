@@ -6,7 +6,11 @@ use App\Http\Requests\TaskOrderRequest;
 use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskStatusRequest;
 use App\Task;
-use App\Project;
+use App\User;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
+
 
 class TaskController extends Controller
 {
@@ -34,11 +38,11 @@ class TaskController extends Controller
         return response()->json(['status' => 'success', 'task' => $task], 200);
     }
 
-    public function updateTask(TaskRequest $request, $id)
+    public function updateTask(TaskRequest $request, $id, $role)
     {
         $task = Task::find($id)->project;
 
-        $this->save($task, $request);
+        $this->save($request, $task);
 
         return response()->json(['status' => 'success'], 200);
     }
@@ -79,8 +83,17 @@ class TaskController extends Controller
 
     private function save(TaskRequest $request, Task $task)
     {
+
+        $response = Http::post('http://localhost:5000/results',[
+            'title' => $request->description
+        ]);
+
+
+        $response = json_decode($response->body());
+        $role = $response->role;
         $task->name = $request->name;
         $task->description = $request->description;
+        $task->user_id =  User::where('role', $role)->inRandomOrder()->first()->id;
         $task->project_id = $request->project_id;
         $task->startdate = $request->startdate;
         $task->enddate = $request->enddate;

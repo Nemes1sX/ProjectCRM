@@ -44,7 +44,6 @@ def clean_str(string):
     string = re.sub(r"[0-9]", "digit", string)
     string = re.sub(r"\'", "", string)    
     string = re.sub(r"\"", "", string)    
-    string = re.sub(r"<", "", string)    
     return string.strip().lower()
 
 #nltk.download('all')
@@ -72,13 +71,13 @@ model = Pipeline([('vectorizer', CountVectorizer(ngram_range=(1,2))),
     ('clf', OneVsRestClassifier(LinearSVC(class_weight="balanced")))])
 
 model.fit(X_train, y_train)
-pred = model.predict(X_train)
-acc = accuracy_score(y_train, pred) * 100
+pred = model.predict(X_test)
+acc = accuracy_score(y_test, pred) * 100
 print("Accuracy:  %.2f" %  acc)
 #confusion_matrix(y_train, y_test)
 #pickle.dump(model, open('taskmodel.pkl', 'wb'))
-
 model = pickle.load(open('taskmodel.pkl', 'rb'))
+
 question = input()
 
 print(model.predict([question])[0])

@@ -17,7 +17,24 @@ class TaskSeeder extends Seeder
                 'description' => 'Sveikas',
                 'startdate' => '2020-11-13',
               'enddate' => '2020-11-20',
-              'project_id' => 1
+              'project_id' => 1,
+              'user_id' => 1
+            ],
+            [
+                'name' => 'Sveiki',
+                'description' => 'Sveiki',
+                'startdate' => '2021-01-25',
+                'enddate' => '2021-01-28',
+                'project_id' => 3,
+                'user_id' => 3
+            ],
+            [
+                'name' => 'Sveikas',
+                'description' => 'Sveikas',
+                'startdate' => '2021-01-25',
+                'enddate' => '2020-01-28',
+                'project_id' => 3,
+                'user_id' => 3
             ],
         ];
         foreach($tasks as $task){

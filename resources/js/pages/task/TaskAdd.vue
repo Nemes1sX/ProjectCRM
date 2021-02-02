@@ -42,15 +42,15 @@
                 disabledBefore: {
                     to: new Date(Date.now())
                 } ,
-                projects: {}
+                projects: {},
+                task: {}
             }
         },
         mounted(){
-            this.getUsers()
+            this.getProjects()
         },
         methods: {
             addTask() {
-                console.log(this.task)
                 this.axios
                     .post('http://localhost:8000/api/task/create', this.task)
                     .then(() => {
@@ -59,7 +59,7 @@
                     .catch(error => console.log(error))
                     .finally(() => this.loading = false)
             },
-            getUsers(){ //Fetch users for assigning them
+            getProjects(){ //Fetch users for assigning them
                 this.axios
                     .get('http://127.0.0.1:8000/api/project/index')
                     .then(response => {

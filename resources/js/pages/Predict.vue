@@ -20,7 +20,8 @@
                 this.axios
                     .post('http://localhost:5000/results', {title: this.taskname})
                     .then(response => {
-                        console.log(response.data);
+                        role = response.data.role;
+                        console.log(role);
                     })
                     .catch(error => {
                         console.log(error);
