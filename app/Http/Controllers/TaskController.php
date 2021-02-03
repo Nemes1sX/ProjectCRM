@@ -83,11 +83,9 @@ class TaskController extends Controller
 
     private function save(TaskRequest $request, Task $task)
     {
-
         $response = Http::post('http://localhost:5000/results',[
             'title' => $request->description
         ]);
-
 
         $response = json_decode($response->body());
         $role = $response->role;
