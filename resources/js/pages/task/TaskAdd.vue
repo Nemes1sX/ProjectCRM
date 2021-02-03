@@ -52,9 +52,16 @@
         methods: {
             addTask() {
                 this.axios
-                    .post('http://localhost:8000/api/task/create', this.task)
-                    .then(() => {
-                        this.$router.push({name: 'home'})
+                    .post('http://localhost:5000/results', {title: this.task.description})
+                    .then(response => {
+                        role = response.data.role;
+                        this.axios
+                            .post('http://localhost:8000/api/task/create', this.task, role)
+                            .then(() => {
+                                this.$router.push({name: 'home'})
+                            })
+                            .catch(error => console.log(error))
+                            .finally(() => this.loading = false)
                     })
                     .catch(error => console.log(error))
                     .finally(() => this.loading = false)
