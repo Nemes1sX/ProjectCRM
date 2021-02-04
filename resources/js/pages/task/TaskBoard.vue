@@ -8,6 +8,9 @@
                     <article class="card" v-for="(task, index) in tasksNotCompleted" :key="tasksNotCompleted.id" :data-id="task.id">
                         <header>
                             {{ task.name }}
+                             <br>
+                            {{ task.user.name }}
+                            {{ [task.user.role]}}
                         </header>
                     </article>
                 </draggable>
@@ -20,6 +23,9 @@
                     <article class="card" v-for="(task, index) in tasksCompleted" :key="tasksCompleted.id" :data-id="tasksCompleted.id">
                         <header>
                             {{ task.name }}
+                            <br>
+                            {{ task.user.name }}
+                            {{ [task.user.role] }}
                         </header>
                     </article>
                 </draggable>
