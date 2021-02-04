@@ -13,10 +13,26 @@ s<template>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>CEO Name</th>
-                            <th>Industry</th>
-                            <th>Size</th>
+                            <th>
+                                <a href="#" @click.prevent="change_sort('name')">Name</a>
+                                <span v-if="this.params.sort_field == 'name' && this.params.sort_direction == 'asc'">&#8593;</span>
+                                <span v-if="this.params.sort_field == 'name' && this.params.sort_direction == 'desc'">&#8595;</span>
+                            </th>
+                            <th>
+                                <a href="#" @click.prevent="change_sort('ceoname')">CEO Name</a>
+                                <span v-if="this.params.sort_field == 'ceoname' && this.params.sort_direction == 'asc'">&#8593;</span>
+                                <span v-if="this.params.sort_field == 'ceoname' && this.params.sort_direction == 'desc'">&#8595;</span>
+                            </th>
+                            <th>
+                                <a href="#" @click.prevent="change_sort('industry')">Industry</a>
+                                <span v-if="this.params.sort_field == 'industry' && this.params.sort_direction == 'asc'">&#8593;</span>
+                                <span v-if="this.params.sort_field == 'industry' && this.params.sort_direction == 'desc'">&#8595;</span>
+                            </th>
+                            <th>
+                                <a href="#" @click.prevent="change_sort('size')">Size</a>
+                                <span v-if="this.params.sort_field == 'size' && this.params.sort_direction == 'asc'">&#8593;</span>
+                                <span v-if="this.params.sort_field == 'size' && this.params.sort_direction == 'desc'">&#8595;</span>
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -51,18 +67,22 @@ s<template>
                 error: {},
                 companies: {},
                 file: '',
+                params: {
+                    sort_field: 'name',
+                    sort_direction: 'desc',
+                }
             }
         },
-        created(){
-            this.axios
-                .get('http://127.0.0.1:8000/api/company/index')
-                .then( response => {
-                   this.companies = response.data.companies;
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-                .finally(() => this.loading = false)
+        mounted(){
+            this.getCompanies()
+        },
+        watch:{
+           params: {
+               handler(){
+                   this.getCompanies();
+               },
+               deep: true
+           },
         },
         methods:{
             handleUpload(){
@@ -101,6 +121,30 @@ s<template>
                         console.log(error);
                     })
                     .finally(() => this.loading = false)
+            },
+            getCompanies(){
+                axios
+                    .get('http://127.0.0.1:8000/api/company/index', {
+                        params: {
+                            ...this.params
+                        }
+                    })
+                    .then( response => {
+                        this.companies = response.data.companies;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                    .finally(() => this.loading = false)
+            },
+            change_sort(field){
+                if(this.params.sort_field === field){
+                    this.params.sort_direction = this.params.sort_direction === 'asc' ? 'desc' : 'asc';
+                }
+                else{
+                    this.params.sort_field = field;
+                    this.params.sort_direction = 'asc';
+                }
             },
             deleteCompany(id){
                 this.axios

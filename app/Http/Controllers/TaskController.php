@@ -16,7 +16,9 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with('project')->get();
+
+
+        $tasks = Task::with('project:id,name','user:id,name,role')->get();
 
         return response()->json(['status' => 'success', 'tasks' => $tasks], 200);
     }

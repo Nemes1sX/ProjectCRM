@@ -7,7 +7,7 @@ use App\Http\Requests\ImportProjectRequest;
 use App\Http\Requests\ImportRequest;
 use App\Http\Requests\ProjectRequest;
 use App\Project;
-use function GuzzleHttp\Promise\task;
+use App\Task;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -17,7 +17,17 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::with('company')->get();
+
+        $sortField = request('sort_field', 'name');
+        if(!in_array($sortField, ['name', 'description', 'status', 'startdate', 'enddate'])){
+            $sortField = 'created_at';
+        }
+        $sortDirection = request('sort_direction', 'desc');
+        if(!in_array($sortDirection, ['asc', 'desc'])){
+            $sortDirection = 'desc';
+        }
+
+        $projects = Project::with('company:id,name')->orderBy($sortField, $sortDirection)->get();
 
         return response()->json(['status' => 'success', 'projects' => $projects], 200);
     }
@@ -31,7 +41,8 @@ class ProjectController extends Controller
 
     public function showTasks($id){
 
-        $tasks = Project::find($id)->tasks()->orderBy('order')->select('id','name','order','status')->get();
+
+        $tasks = Task::with('user:id,name,role')->where('project_id' , '=' , $id)->orderBy('order')->get();
 
         $tasksCompleted = $tasks->filter(function ($task, $key) {
             return $task->status;

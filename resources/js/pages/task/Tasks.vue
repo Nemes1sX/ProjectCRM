@@ -1,18 +1,6 @@
 <template>
     <div>
         <h3 class="text-center">All Tasks</h3><br/>
-        <form @submit.prevent="taskSort">
-            <select class="form-control" v-model="sortcolumn">
-                <option value="taskdate">Date</option>
-                <option value="status">Status</option>
-            </select>
-            <select class="form-control" v-model="ascdsc">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-            </select>
-            <button type="submit" class="btn btn-primary">Sort Tasks</button>
-        </form>
-      
         <router-link :to="{name: 'task.create'}" class="btn btn-success">Add Task</router-link>
         <table class="table table-bordered">
             <thead>
@@ -21,6 +9,8 @@
                 <th>Description</th>
                 <th>Status</th>
                 <th>Project</th>
+                <th>Assigned user</th>
+                <th>User role</th>
                 <th>Task start date</th>
                 <th>Task end date</th>
                 <th>Actions</th>
@@ -36,6 +26,8 @@
                   <td v-else-if="task.status === 2">Completed</td>
                   <td v-else>Undefined</td>
                   <td>{{ task.project.name }}</td>
+                  <td>{{ task.user.name }}</td>
+                  <td>{{ task.user.role}}</td>
                   <td>{{ task.startdate }}</td>
                   <td>{{ task.enddate }}</td>
                 <td>

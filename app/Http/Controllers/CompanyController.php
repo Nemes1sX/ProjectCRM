@@ -15,7 +15,17 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
+
+        $sortField = request('sort_field', 'name');
+        if(!in_array($sortField, ['name', 'size', 'industry', 'ceoname'])){
+            $sortField = 'created_at';
+        }
+        $sortDirection = request('sort_direction', 'desc');
+        if(!in_array($sortDirection, ['asc', 'desc'])){
+            $sortDirection = 'desc';
+        }
+
+        $companies = Company::orderBy($sortField, $sortDirection)->get();
 
         return response()->json(['status' => 'success', 'companies' => $companies], 200);
     }

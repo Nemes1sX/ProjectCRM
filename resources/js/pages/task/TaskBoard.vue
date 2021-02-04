@@ -8,6 +8,9 @@
                     <article class="card" v-for="(task, index) in tasksNotCompleted" :key="tasksNotCompleted.id" :data-id="task.id">
                         <header>
                             {{ task.name }}
+                             <br>
+                            {{ task.user.name }}
+                            {{ [task.user.role]}}
                         </header>
                     </article>
                 </draggable>
@@ -20,6 +23,9 @@
                     <article class="card" v-for="(task, index) in tasksCompleted" :key="tasksCompleted.id" :data-id="tasksCompleted.id">
                         <header>
                             {{ task.name }}
+                            <br>
+                            {{ task.user.name }}
+                            {{ [task.user.role] }}
                         </header>
                     </article>
                 </draggable>
@@ -75,7 +81,7 @@
 
                 let tasks = this.tasksNotCompleted.concat(this.tasksCompleted);
 
-                axios.put('http://127.0.0.1:8000/api/task/updateAll', {
+                this.axios.put('http://127.0.0.1:8000/api/task/updateAll', {
                     tasks: tasks
                 }).then((response) => {
                     console.log(response.data);
