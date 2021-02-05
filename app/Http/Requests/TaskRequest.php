@@ -29,7 +29,7 @@ class TaskRequest extends FormRequest
 
         return [
             'name' => 'required|max:40',
-            'description' => 'required|max:40',
+            'description' => 'required|max:160',
             'startdate' => 'required|date|after_or_equal:'.$project->startdate->format('Y-m-d'),
             'enddate' => 'required|date|after_or_equal:startdate|before_or_equal:'.$project->enddate->format('Y-m-d'),
         ];

@@ -97,7 +97,6 @@
                     })
                     .then( response => {
                         this.projects = response.data.projects;
-                        this.$router.push({name: 'projects' });
                     })
                     .catch(error => {
                         console.log(error);

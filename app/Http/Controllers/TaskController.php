@@ -17,8 +17,16 @@ class TaskController extends Controller
     public function index()
     {
 
+        $sortField = request('sort_field', 'name');
+        if(!in_array($sortField, ['name', 'description', 'status', 'startdate', 'enddate'])){
+            $sortField = 'created_at';
+        }
+        $sortDirection = request('sort_direction', 'desc');
+        if(!in_array($sortDirection, ['asc', 'desc'])){
+            $sortDirection = 'desc';
+        }
 
-        $tasks = Task::with('project:id,name','user:id,name,role')->get();
+        $tasks = Task::with('project:id,name','user:id,name,role')->orderBy($sortField, $sortDirection)->get();
 
         return response()->json(['status' => 'success', 'tasks' => $tasks], 200);
     }
@@ -40,7 +48,7 @@ class TaskController extends Controller
         return response()->json(['status' => 'success', 'task' => $task], 200);
     }
 
-    public function updateTask(TaskRequest $request, $id, $role)
+    public function updateTask(TaskRequest $request, $id)
     {
         $task = Task::find($id)->project;
 
@@ -85,15 +93,14 @@ class TaskController extends Controller
 
     private function save(TaskRequest $request, Task $task)
     {
-        $response = Http::post('http://localhost:5000/results',[
+        $response = Http::post('http://localhost:5000/results', [
             'title' => $request->description
         ]);
 
         $response = json_decode($response->body());
-        $role = $response->role;
         $task->name = $request->name;
         $task->description = $request->description;
-        $task->user_id =  User::where('role', $role)->inRandomOrder()->first()->id;
+        $task->user_id =  User::where('role', $response->role)->inRandomOrder()->first()->id;
         $task->project_id = $request->project_id;
         $task->startdate = $request->startdate;
         $task->enddate = $request->enddate;

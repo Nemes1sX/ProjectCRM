@@ -5,14 +5,34 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Status</th>
+                <th>
+                    <a href="#" @click.prevent="change_sort('name')">Name</a>
+                    <span v-if="this.params.sort_field == 'name' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'name' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
+                <th>
+                    <a href="#" @click.prevent="change_sort('description')">Description</a>
+                    <span v-if="this.params.sort_field == 'description' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'description' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
+                <th>
+                    <a href="#" @click.prevent="change_sort('status')">Status</a>
+                    <span v-if="this.params.sort_field == 'status' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'status' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
                 <th>Project</th>
                 <th>Assigned user</th>
                 <th>User role</th>
-                <th>Task start date</th>
-                <th>Task end date</th>
+                <th>
+                    <a href="#" @click.prevent="change_sort('startdate')">Start Date</a>
+                    <span v-if="this.params.sort_field == 'startdate' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'startdate' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
+                <th>
+                    <a href="#" @click.prevent="change_sort('enddate')">End Date</a>
+                    <span v-if="this.params.sort_field == 'enddate' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'enddate' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -48,34 +68,35 @@
         data() {
             return {
                 tasks: [],
-               
+                params: {
+                    sort_field: 'name',
+                    sort_direction: 'desc'
+                }
+
             }
         },
-        created() { //Fetch tasks
-            this.axios
-                .get('http://127.0.0.1:8000/api/task/index')
-                .then(response => {
-                    this.tasks = response.data.tasks;
-                });
-
+        mounted(){
+            this.getTasks()
         },
-        methods: { //Delete tasks
-           /* deleteTask(id) {
-                this.axios
-                    .delete(`http://127.0.0.1:8000/api/task/delete/${id}`)
-                    .then(response => {
-                        let i = this.tasks.map(item => item.id).indexOf(id); // find index of your object
-                        this.tasks.splice(i, 1)
-                    });
+        watch:{
+            params: {
+                handler(){
+                    this.getTasks();
+                },
+                deep: true
             },
-            taskSort(sortcolumn, ascdsdc){ //Sorting
+        },
+        methods: {
+            getTasks() { //Fetch tasks
                 this.axios
-                    .get(`http://127.0.0.1:8000/api/task/tasksort/${sortcolumn}/${ascdsc}`)
-                          .then(response => {
-                            this.tasks = response.data.tasks;
+                    .get('http://127.0.0.1:8000/api/task/index', {
+                    params: {...this.params}
+                    })
+                    .then(response => {
+                        this.tasks = response.data.tasks;
                     });
-                    }
-            }*/
+
+            },
             deleteTask(id) {
                 this.axios
                     .delete(`http://127.0.0.1:8000/api/task/delete/${id}`)
@@ -84,10 +105,17 @@
                         console.log(error)
                     })
                     .finally(() => this.loading = false)
-            }
-
+            },
+            change_sort(field){
+                if (this.params.sort_field === field) {
+                    this.params.sort_direction = this.params.sort_direction === 'asc' ? 'desc' : 'asc';
+                }
+                else {
+                    this.params.sort_field = field;
+                    this.params.sort_direction = 'asc';
+                }
             },
         }
-
+    }
     
 </script>

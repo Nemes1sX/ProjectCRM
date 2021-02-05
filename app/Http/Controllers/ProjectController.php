@@ -40,7 +40,7 @@ class ProjectController extends Controller
     }
 
     public function showTasks($id){
-        
+
         $tasks = Task::with('user:id,name,role')->where('project_id' , '=' , $id)->orderBy('order')->get();
 
         $tasksCompleted = $tasks->filter(function ($task, $key) {
