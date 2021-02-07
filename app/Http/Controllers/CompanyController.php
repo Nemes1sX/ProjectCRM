@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Company;
 use App\Exports\CompanyExport;
 use App\Http\Requests\CompanyImportRequest;
@@ -63,9 +62,9 @@ class CompanyController extends Controller
     }
     public function importCompany(CompanyImportRequest $request){
 
-        $path = $request->file('file');
+        $path = $request->file('file')->getRealPath();
 
-        $data = Excel::import(new CompanyImport(), $path);
+        Excel::import(new CompanyImport(), $path);
 
         return response()->json(['status' => 'success'], 200);
     }

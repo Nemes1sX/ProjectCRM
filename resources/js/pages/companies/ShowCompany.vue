@@ -14,10 +14,9 @@
             </div>
         </div>
             <h4>Company projects</h4>
-            <label class="form-control-label"  for="input-file-export">Export Excel File</label>
-            <button type="button" class="btn btn-danger" id="input-file-export" @click="exportProjects(company.id, company.name)">Export CSV file</button>
-                <input type="file" ref="file" class="form-control" id="file" :class="{ ' is-invalid' : error.message }" v-on:change="handleUpload()">
-                <button type="submit" class="btn btn-success" v-on:click="importProjects()">Upload</button>
+            <button type="button" class="btn btn-danger" id="input-file-export" @click="exportProjects(company.id, company.name)">Export Excel file</button>
+                <input type="file" ref="file" class="form-control" id="file" :class="{ ' is-invalid' : error.message }" @change="handleUpload()">
+                <button type="submit"  class="btn btn-success" @click="importProjects()">Upload</button>
             <div v-if="error.message" class="invalid-feedback">
             </div>
             <table class="table table-bordered">
@@ -86,16 +85,15 @@ export default{
           var formData = new FormData();
           formData.append('file', this.file);
 
-          console.log(formData);
-
           this.axios
-              .post('http://127.0.0.1:8000/api/project/import', formData, `${this.$route.params.id}`, {
+              .post(`http://127.0.0.1:8000/api/project/import/${this.$route.params.id}`, formData,  {
                   headers: {
-                      'Content-Type': 'multipart/form-data'
+                      'Access-Control-Allow-Origin': '*',
+                      'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
                   }
               })
               .then(() => {
-                  windows.location.href = `company/show/${this.$route.params.id}`
+                  this.$router.push(`/company/show/${this.$route.params.id}`)
               })
               .catch(error => {
                   console.log(error);
@@ -104,28 +102,31 @@ export default{
       },
       exportProjects(id, name){
           this.axios
-              .get('http://127.0.0.1:8000/api/project/export', id, {
+              .get('http://127.0.0.1:8000/api/project/export/' + id, {
                   responseType: 'blob'
               })
               .then( response => {
-                  var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-
-                 var fileLink = document.createElement('a');
-
-                fileLink.href = fileURL;
-
-                fileLink.setAttribute('download', name +'.csv');
-
-                document.body.appendChild(fileLink);
-
-                  fileLink.click();
-
+                  const url = window.URL.createObjectURL(new Blob([response.data]))
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', name+'_projects.xlsx'); //or any other extension
+                  document.body.appendChild(link);
+                  link.click();
               })
               .catch(error => {
                   console.log(error);
               })
               .finally(() => this.loading = false)
       },
+        deleteProject(id){
+            this.axios
+                .delete(`http://127.0.0.1:8000/api/project/delete/${id}`)
+                .then()
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => this.loading = false)
+        },
       }
     }
 

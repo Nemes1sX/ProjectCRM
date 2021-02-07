@@ -6,7 +6,7 @@ s<template>
                 <router-link :to="{name: 'company.create'}" active-class="active" class="btn btn-info">Add Company</router-link>
                 <button type="button" class="btn btn-success" @click="exportCompanies">Export Excel file</button>
                     <label class="form-control-label"  for="file">Upload Excel File</label>
-                    <input type="file" ref="file" id="file" class="form-control" :class="{ ' is-invalid' : error.message }"  v-on:change="onFileChange()">
+                    <input type="file" ref="file" id="file" class="form-control" :class="{ ' is-invalid' : error.message }"  @change="handleUpload()">
                     <button type="submit" class="btn btn-success" v-on:click="importCompanies()">Upload</button>
                 <div v-if="error.message" class="invalid-feedback">
                 </div>
@@ -87,17 +87,19 @@ s<template>
         methods:{
             handleUpload(){
                 this.file = this.$refs.file.files[0];
+                console.log(this.file)
             },
             importCompanies(){
 
-                var formData = new FormData();
+                let formData = new FormData();
                 formData.append('file', this.file);
+
                 this.axios
-                    .post('http://127.0.0.1:8000/api/company/import',{file: formData}, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
+                    .post('http://127.0.0.1:8000/api/company/import', formData, {
+                    headers: { 'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2) }
                 })
                     .then(() => {
-                        windows.location.href = `company`
+                        this.$router.push('company')
                     })
                     .catch(error => {
                         console.log(error);

@@ -21,7 +21,7 @@ return [
 
     'allowed_origins' => ['*', 'localhost:5000/*'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['*'],
 
     'allowed_headers' => ['*', 'localhost:5000/*'],
 

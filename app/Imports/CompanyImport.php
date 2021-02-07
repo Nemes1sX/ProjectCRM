@@ -15,10 +15,10 @@ class CompanyImport implements ToModel
     public function model(array $row)
     {
         return new Company([
-            'name' => $row['name'],
-            'ceoname' => $row['ceoname'],
-            'size' => $row['size'],
-            'industry' => $row['industry']
+            'name' => $row[0],
+            'ceoname' => $row[1],
+            'size' => $row[2],
+            'industry' => $row[3]
         ]);
     }
 }

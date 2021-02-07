@@ -37,10 +37,10 @@ Route::prefix('project')->group(function(){
     Route::post('create', 'ProjectController@create');
     Route::get('show/{id}', 'ProjectController@findProject');
     Route::post('update', 'ProjectController@updateProject');
-    Route::delete('delete', 'ProjectController@delete');
+    Route::delete('delete/{id}', 'ProjectController@delete');
     Route::get('taskboard/{id}', 'ProjectController@showTasks');
-    Route::get('export/{id}/{comapnyname}', 'ProjectController@exportProjects');
-    Route::post('import', 'ProjectController@importProjects');
+    Route::get('export/{id}', 'ProjectController@exportProjects');
+    Route::post('import/{id}', 'ProjectController@importProjects');
 });
 Route::prefix('task')->group(function(){
     Route::get('index', 'TaskController@index');

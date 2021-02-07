@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 import Homepage from '../pages/Homepage.vue'
 import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
-import Predict from '../pages/Predict.vue'
 import Companies from '../pages/companies/Companies.vue'
 import CreateCompany from '../pages/companies/CreateCompany.vue'
 import ShowComponent from '../pages/companies/ShowCompany.vue'
@@ -92,12 +91,8 @@ const routes =  [
             path: '/task/edit',
             name: 'task.edit',
             component: TaskAdd,
-        },
-        {
-            path: '/predict',
-            name: 'predict',
-            component: Predict,
         }
+
 ]
 const router = new VueRouter({
     history: true,

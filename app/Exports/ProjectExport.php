@@ -3,15 +3,21 @@
 namespace App\Exports;
 
 use App\Project;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\Exportable;
 
-class ProjectExport implements FromCollection
+class ProjectExport implements FromQuery
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+
+    use Exportable;
+
+    public function __construct(int $id)
     {
-        return Project::all();
+        $this->id = $id;
+    }
+
+    public function query()
+    {
+        return Project::query()->where('company_id', '=', $this->id);
     }
 }
