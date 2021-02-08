@@ -24,7 +24,7 @@ class ImportProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|file|mimes:xls,xlsx',
+            'file' => 'required|file|mimes:xls,xlsx'
         ];
     }
 }
