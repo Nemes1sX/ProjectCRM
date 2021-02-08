@@ -8,7 +8,6 @@ class Project extends Model
 {
     protected $fillable = ['name', 'description', 'startdate', 'enddate', 'company_id'];
 
-
     protected $dates = ['startdate', 'enddate'];
 
     protected $hidden = ['id', 'company_id', 'created_at','updated_at'];

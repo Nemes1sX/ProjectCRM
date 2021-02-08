@@ -2,12 +2,13 @@
 <template>
     <div class="container">
         <full-calendar
-                :event="eventSources"
+                :events="calendarEvents"
                 :header="{
                     left: 'prev, next today',
                     center: 'title',
                     right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
-                }"></full-calendar>
+                }"
+            ></full-calendar>
     </div>
 </template>
 
@@ -16,20 +17,20 @@
 
 
     export default{
-        data(){
-            return{
-                eventSources: [{
-                        events(start, end, timezone, callback){
-                            this.axios.get('http://127.0.0.1:8000/api/project/showcalendar')
-                                .then(response =>{
-                                    callback(response.data.projects)
-                                    console.log(response.data.projects);
-                                })
-                        },
-                        color: 'green',
-                        textColor: 'black',
-                    }]
+        data()
+        {
+            return {
+                calendarEvents: [{
+                    events(start, end, timezone, callback) {
+                        axios.get('http://localhost:8000/show-events').then(res => {
+                            callback(res.data.eventList)
+                        })
+                    },
+                    color: 'blue',
+                    textColor: 'white',
+                }]
             }
-        }
+        },
+
     }
 </script>

@@ -93,7 +93,7 @@ export default{
                   }
               })
               .then(() => {
-                  this.$router.push(`/company/show/${this.$route.params.id}`)
+                  this.$router.push({name: `/company/show/${this.$route.params.id}`})
               })
               .catch(error => {
                   console.log(error);
