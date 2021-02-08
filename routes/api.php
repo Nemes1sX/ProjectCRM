@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('products', 'Api\ProductController@index');
 
-
 Route::prefix('company')->group(function(){
     Route::get('index', 'CompanyController@index');
     Route::post('create', 'CompanyController@create');
@@ -30,7 +29,6 @@ Route::prefix('company')->group(function(){
     Route::get('export', 'CompanyController@exportCompany');
     Route::post('import', 'CompanyController@importCompany');
 });
-
 Route::prefix('project')->group(function(){
     Route::get('index', 'ProjectController@index');
     Route::get('showcalendar', 'ProjectController@showCalendar');
@@ -50,7 +48,5 @@ Route::prefix('task')->group(function(){
     Route::post('delete', 'TaskController@deleteTask');
     Route::patch('updatestatus/{id}', 'TaskController@updateTaskStatus');
     Route::put('updateAll', 'TaskController@updateTaskOrder');
-
 });
 
-Route::get('pythontest', 'ProjectController@testpython');
