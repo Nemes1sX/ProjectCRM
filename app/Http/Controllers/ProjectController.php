@@ -95,7 +95,7 @@ class ProjectController extends Controller
 
 
     public function importProjects($company_id, ImportProjectRequest $request){
-        
+
         $path = $request->file('file')->getRealPath();
 
        Excel::import(new ProjectImport($company_id), $path);
