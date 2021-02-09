@@ -1,6 +1,8 @@
 import VueRouter from 'vue-router'
 
 
+import Register from '../pages/auth/Register.vue'
+import Login from '../pages/auth/Login.vue'
 import Homepage from '../pages/Homepage.vue'
 import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
@@ -15,6 +17,16 @@ import TaskBoard from '../pages/task/TaskBoard.vue'
 import TaskAdd from '../pages/task/TaskAdd.vue'
 
 const routes =  [
+        {
+            path: '/register',
+            name: 'register',
+            component: Register,
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+        },
         {
             path: '/',
             name: 'home',

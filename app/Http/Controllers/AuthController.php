@@ -15,12 +15,11 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
 
         return response()->json(['status' => 'success'], 200);
     }
@@ -30,7 +29,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
-        if ($token = $this->guard()->attempt($credentials)) {
+        if ($token = $this->guard('api')->attempt($credentials)) {
             return response()->json(['status' => 'success', 'token' => $token], 200)->header('Authorization', $token);
         }
         return response()->json(['error' => 'login_error'], 401);
@@ -74,6 +73,6 @@ class AuthController extends Controller
      */
     private function guard()
     {
-        return Auth::guard();
+        return Auth::guard('api');
     }
 }
