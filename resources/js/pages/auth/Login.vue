@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h2 class="text-center">Login</h2>
         <div class="alert alert-danger" v-if="error">
             <p>There was an error, unable to sign in with those credentials.</p>
         </div>
@@ -12,7 +13,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" class="form-control" v-model="password" required>
             </div>
-            <button type="submit" class="btn btn-default">Sign in</button>
+            <button type="submit" class="btn btn-success w-100">Sign in</button>
         </form>
     </div>
 </template>
@@ -28,6 +29,7 @@
         },
         methods: {
             login(){
+                console.log(this.$auth);
                 var app = this
                 this.$auth.login({
                     params: {

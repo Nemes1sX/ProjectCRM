@@ -82,6 +82,7 @@ const routes =  [
           path: '/taskboard/:id',
           name: 'task.board',
           component: TaskBoard,
+            props: true,
         },
         {
           path: '/calendar',

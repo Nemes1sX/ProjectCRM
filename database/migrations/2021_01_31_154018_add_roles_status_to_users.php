@@ -15,7 +15,7 @@ class AddRolesStatusToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('role');
-            $table->integer('status');
+            $table->integer('status')->default(2);
         });
     }
 
