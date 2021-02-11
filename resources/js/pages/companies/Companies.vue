@@ -150,7 +150,7 @@ s<template>
             },
             deleteCompany(id){
                 this.axios
-                    .delete(`http://127.0.0.1:8000/api/company/delete/${id}`)
+                    .delete('http://127.0.0.1:8000/api/company/delete/'+ id)
                     .then()
                     .catch(error => {
                         console.log(error)
