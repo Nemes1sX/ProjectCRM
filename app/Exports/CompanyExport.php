@@ -3,15 +3,22 @@
 namespace App\Exports;
 
 use App\Company;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class CompanyExport implements FromCollection
+class CompanyExport implements FromQuery, WithHeadings
 {
+    use Exportable;
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
+    public function query()
     {
-        return Company::all();
+        return Company::query()->select('name','ceoname','size','industry');
+    }
+    public function headings(): array
+    {
+        return ['Name', 'Ceo Name', 'Size', 'Industry'];
     }
 }

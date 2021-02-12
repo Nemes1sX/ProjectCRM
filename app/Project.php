@@ -10,7 +10,7 @@ class Project extends Model
 
     protected $dates = ['startdate', 'enddate'];
 
-    protected $hidden = ['company_id', 'created_at','updated_at'];
+    protected $hidden = ['created_at','updated_at'];
 
     protected $casts = [
         'startdate' => 'date:Y-m-d',

@@ -8,6 +8,8 @@ class Company extends Model
 {
     protected $fillable = ['name', 'ceoname', 'industry', 'size'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function tasks()
     {
         return $this->hasManyThrough(

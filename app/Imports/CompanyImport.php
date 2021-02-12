@@ -3,22 +3,36 @@
 namespace App\Imports;
 
 use App\Company;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class CompanyImport implements ToModel
+class CompanyImport implements ToCollection, WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new Company([
-            'name' => $row[0],
-            'ceoname' => $row[1],
-            'size' => $row[2],
-            'industry' => $row[3]
+
+        Validator::make($rows->toArray(),[
+            'name' => 'required|max:40',
+            'ceoname' => 'required|max:40',
+            'industry' => 'required',
+            'size' => 'required',
         ]);
+
+
+        foreach($rows as $row) {
+
+            Company::create([
+                'name' => $row['name'],
+                'ceoname' => $row['ceoname'],
+                'size' => $row['size'],
+                'industry' => $row['industry']
+            ]);
+        }
     }
 }

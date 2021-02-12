@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
             <section class="list">
-                <header>UPCOMING</header>
+                <header>TO DO</header>
                 <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" v-model="tasksNotCompleted" :tag="'article'" @add="onAdd($event, false)"  @change="update">
-                    <article class="card" v-for="(task, index) in tasksNotCompleted" :key="tasksNotCompleted.id" :data-id="task.id">
+                    <article class="card" v-for="(task, index) in tasksToDo" :key="tasksToDo.id" :data-id="task.id">
                         <header>
                             {{ task.name }}
                              <br>
@@ -18,9 +18,24 @@
         </div>
         <div class="col-md-4">
             <section class="list">
+                <header>IN PROGRESS</header>
+                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" :tag="'article'" v-model="tasksInProgress" @add="onAdd($event, true)"  @change="update">
+                    <article class="card" v-for="(task, index) in tasksInProgress" :key="tasksInProgress.id" :data-id="task.id">
+                        <header>
+                            {{ task.name }}
+                            <br>
+                            {{ task.user.name }}
+                            {{ [task.user.role] }}
+                        </header>
+                    </article>
+                </draggable>
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section class="list">
                 <header>COMPLETED</header>
                 <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" :tag="'article'" v-model="tasksCompleted" @add="onAdd($event, true)"  @change="update">
-                    <article class="card" v-for="(task, index) in tasksCompleted" :key="tasksCompleted.id" :data-id="tasksCompleted.id">
+                    <article class="card" v-for="(task, index) in tasksCompleted" :key="tasksCompleted.id" :data-id="task.id">
                         <header>
                             {{ task.name }}
                             <br>
@@ -43,15 +58,17 @@
         },
         data() {
             return {
-               tasksNotCompleted: {},
-               tasksCompleted: {}
+                tasksToDo: {},
+                tasksInProgress: {},
+                tasksCompleted: {}
             }
         },
         created(){
             this.axios
                 .get(`http://127.0.0.1:8000/api/project/taskboard/${this.$route.params.id}`)
                 .then( response => {
-                    this.tasksNotCompleted =  response.data.tasksNotCompleted;
+                    this.tasksToDo =  response.data.tasksToDo;
+                    this.tasksInProgress =  response.data.tasksInProgress;
                     this.tasksCompleted = response.data.tasksCompleted;
                 })
                 .catch(error => {
@@ -71,15 +88,19 @@
                 })
             },
             update() {
-                this.tasksNotCompleted.map((task, index) => {
+                this.tasksToDo.map((task, index) => {
                     task.order = index + 1;
+                });
+
+                this.tasksInProgress.map((task, index) => {
+                   task.order = index + 1;
                 });
 
                 this.tasksCompleted.map((task, index) => {
                     task.order = index + 1;
                 });
 
-                let tasks = this.tasksNotCompleted.concat(this.tasksCompleted);
+                let tasks = this.tasksToDo.concat(this.tasksCompleted);
 
                 this.axios.put('http://127.0.0.1:8000/api/task/updateAll', {
                     tasks: tasks

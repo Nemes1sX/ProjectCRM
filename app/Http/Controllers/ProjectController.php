@@ -46,17 +46,22 @@ class ProjectController extends Controller
         $tasks = Task::with('user:id,name,role')->where('project_id' , '=' , $id)->orderBy('order')->get();
 
         $tasksCompleted = $tasks->filter(function ($task, $key) {
-            return $task->status;
+            return $task->status == 2;
         })->values();
 
-        $tasksNotCompleted = $tasks->filter(function ($task, $key) {
-           return ! $task->status;
+        $tasksInProgress = $tasks->filter(function ($task, $key) {
+            return $task->status == 1;
+        })->values();
+
+        $tasksToDo = $tasks->filter(function ($task, $key) {
+           return $task->status == 0;
         })->values();
 
 
         return response()->json(['status' => 'success',
             'tasksCompleted' => $tasksCompleted,
-            'tasksNotCompleted' => $tasksNotCompleted], 200);
+            'tasksToDo' => $tasksToDo,
+            'tasksInProgress' => $tasksInProgress], 200);
     }
 
     public function create(ProjectRequest $request)
