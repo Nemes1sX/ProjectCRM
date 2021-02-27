@@ -1,4 +1,3 @@
-<script src="../../../../adminpv1/resources/js/app.js"></script>
 <template>
     <div class="row">
 
@@ -6,42 +5,59 @@
 
         <div class="col-lg-9 mt-4">
             <div class="row">
-                <div v-for="product in products" class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" :src="product.photo" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">{{ product.name }}</a>
-                            </h4>
-                            <h5>${{ product.price }}</h5>
-                            <p class="card-text">{{ product.description }}</p>
-                        </div>
-                    </div>
+                <div class="card bg-danger text-white col-md-4">
+                    <div class="card-body">To-do tasks: {{tasksToDo}}</div>
+                </div>
+                <div class="card bg-primary text-white col-md-4">
+                    <div class="card-body">In progress tasks: {{tasksInProgress}}</div>
+                </div>
+                <div class="card bg-success text-white col-md-4">
+                    <div class="card-body">Completed tasks: {{tasksCompleted}}</div>
                 </div>
             </div>
+        </div>
+        <div class="taskbar">
+            <taskbar></taskbar>
         </div>
     </div>
     <!-- /.row -->
 
 </template>
 
+<style>
+    .taskbar{
+        margin: 0 auto;
+    }
+</style>
+
 <script>
     import Sidebar from "../components/Sidebar";
+    import TaskBar from "../components/TaskBar";
 
     export default {
         data() {
             return {
-                products: {}
+                tasksToDo: '',
+                tasksInProgress: '',
+                tasksCompleted: ''
             }
         },
+        created(){
+          this.axios
+              .get('http://localhost:8000/api/home')
+              .then( response => {
+                  this.tasksToDo = response.data.tasksToDo;
+                  this.tasksInProgress = response.data.tasksInProgress;
+                  this.tasksCompleted = response.data.tasksCompleted;
+              })
+
+        },
         mounted() {
-            axios.get('/api/products')
-                .then(response => {
-                    this.products = response.data.data;
-                });
+
         },
         components: {
-            'sidebar': Sidebar
+            'sidebar': Sidebar,
+            'taskbar': TaskBar
         }
     }
 </script>

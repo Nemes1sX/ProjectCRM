@@ -1,4 +1,3 @@
-<script src="../routes/index.js"></script>
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -10,8 +9,35 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item" style="color: white;">Settings</li>
+                    <!--LOGOUT-->
+                    <li>
+                        <a href="#" >Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </template>
+
+<script>
+    export default {
+        data(){
+            return {
+                routes: {
+                    // UNLOGGED
+                    unlogged: [
+                        {
+                            name: 'Login',
+                            path: 'login'
+                        }
+                    ],
+
+                }
+            }
+        },
+        mounted(){
+
+        },
+
+    }
+</script>

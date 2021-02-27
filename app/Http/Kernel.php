@@ -60,6 +60,8 @@ class Kernel extends HttpKernel
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'CheckRole' => \App\Http\Middleware\CheckRole::class,
+        'isAdmin' => \App\Http\Middleware\CheckIsAdmin::class,
+        'isAdminOrSelf' => \App\Http\Middleware\CheckIsAdminOrSelf::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'jwt.auth' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
         'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,

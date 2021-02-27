@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskOrderRequest;
 use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskStatusRequest;
+use App\Project;
 use App\Task;
 use App\User;
 use GuzzleHttp\Client;
@@ -91,6 +92,13 @@ class TaskController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
+    private function minTasks($role)
+    {
+        $user = User::withCount('tasks')->where('role', $role)->orderBy('tasks_count', 'asc')->first();
+
+        return $user->id;
+    }
+
     private function save(TaskRequest $request, Task $task)
     {
         $response = Http::post('http://localhost:5000/results', [
@@ -100,7 +108,7 @@ class TaskController extends Controller
         $response = json_decode($response->body());
         $task->name = $request->name;
         $task->description = $request->description;
-        $task->user_id =  User::where('role', $response->role)->inRandomOrder()->first()->id;
+        $task->user_id =  $this->minTasks($response->role);
         $task->project_id = $request->project_id;
         $task->startdate = $request->startdate;
         $task->enddate = $request->enddate;
