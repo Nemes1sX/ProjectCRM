@@ -1,17 +1,19 @@
 require('./bootstrap');
 
 import Vue from 'vue'
+import 'es6-promise/auto';
 
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
+import VueAuth from '@websanova/vue-auth';
 import 'fullcalendar/dist/fullcalendar.css';
 import FullCalendar from 'vue-full-calendar';
-axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import App from './components/App.vue'
 import router from './routes/index'
 import auth from './auth'
+
 
 
 
@@ -27,8 +29,9 @@ Vue.use(IconsPlugin);
 Vue.router = router;
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
+axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 Vue.use(FullCalendar);
-Vue.use(require('@websanova/vue-auth'), auth);
+Vue.use(VueAuth, auth);
 
 const app = new Vue({
     el: '#app',

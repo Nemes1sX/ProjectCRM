@@ -28,22 +28,20 @@
             }
         },
         methods: {
-            login(){
-                console.log(this.$auth);
+            login() {
+                // get the redirect object
                 var app = this
                 this.$auth.login({
                     params: {
                         email: app.email,
                         password: app.password
                     },
-                    success: function () {
-
-                    },
-                    error: function () {
-                        app.error = true
+                    success: function () {},
+                    error: function() {
+                        app.has_error = true
                     },
                     rememberMe: true,
-                    redirect: '/',
+                    redirect: '/company',
                     fetchUser: true,
                 });
             },

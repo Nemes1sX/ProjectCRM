@@ -39,6 +39,9 @@ Route::prefix('auth')->group(function () {
     });
 });
 
+Route::group(['middleware' => 'auth:api'], function (){
+
+});
 
 Route::prefix('company')->group(function(){
     Route::get('index', 'CompanyController@index');
@@ -68,5 +71,5 @@ Route::prefix('task')->group(function(){
     Route::post('delete', 'TaskController@deleteTask');
     Route::patch('updatestatus/{id}', 'TaskController@updateTaskStatus');
     Route::put('updateAll', 'TaskController@updateTaskOrder');
+    Route::get('counttask', 'TaskController@minTasks');
 });
-

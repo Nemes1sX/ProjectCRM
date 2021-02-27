@@ -49,9 +49,9 @@ class AuthController extends Controller
     /**
      * Get authenticated user
      */
-    public function user(Request $request)
+    public function user()
     {
-        $user = User::find(Auth::user()->id);
+        $user = auth()->id();
         return response()->json([
             'status' => 'success',
             'data' => $user
@@ -62,7 +62,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        if ($token = $this->guard()->refresh()) {
+        if ($token = $this->guard('api')->refresh()) {
             return response()
                 ->json(['status' => 'successs'], 200)
                 ->header('Authorization', $token);
