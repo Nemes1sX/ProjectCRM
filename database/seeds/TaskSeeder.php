@@ -16,15 +16,17 @@ class TaskSeeder extends Seeder
                 'name' => 'Sveikas',
                 'description' => 'Sveikas',
                 'startdate' => '2020-11-13',
-              'enddate' => '2020-11-20',
-              'project_id' => 1,
-              'user_id' => 1
+                'enddate' => '2020-11-20',
+                'estimated_time' => 1,
+                'project_id' => 1,
+                'user_id' => 1
             ],
             [
                 'name' => 'Sveiki',
                 'description' => 'Sveiki',
                 'startdate' => '2021-01-25',
                 'enddate' => '2021-01-28',
+                'estimated_time' => 1,
                 'project_id' => 3,
                 'user_id' => 3
             ],
@@ -33,11 +35,12 @@ class TaskSeeder extends Seeder
                 'description' => 'Sveikas',
                 'startdate' => '2021-01-25',
                 'enddate' => '2020-01-28',
+                'estimated_time' => 1,
                 'project_id' => 3,
                 'user_id' => 3
             ],
         ];
-        foreach($tasks as $task){
+        foreach ($tasks as $task) {
             \App\Task::create($task);
         }
     }

@@ -12,6 +12,10 @@
                         <label>Description</label>
                         <textarea class="form-control" v-model="task.description"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="estimated-hour">Estimated hours</label>
+                        <input type="number" id="estimated-hour" v-model.number="task.estimated_time">
+                    </div>
                      <div class="form-group">
                         <label for="task-start-date">Task start date</label>
                         <b-form-datepicker id="task-start-date" v-model="task.startdate" type="date" format="YYYY-MM-DD" valueType="format" :disabled-dates="disabledBefore"></b-form-datepicker>
@@ -43,7 +47,7 @@
                     to: new Date(Date.now())
                 } ,
                 projects: {},
-                task: {}
+                task: {},
             }
         },
         mounted(){

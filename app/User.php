@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Task;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -51,5 +52,16 @@ class User extends Authenticatable implements JWTSubject
     public function tasks()
     {
         return $this->hasMany('App\Task');
+    }
+
+    public function workHours($query)
+    {
+        return $query->addSelect([
+            'estimated_time' => Task::selectRaw('sum(estimated_time) as total')
+                ->whereColumn('user_id', 'users.id')
+                ->groupBy('user_id')
+        ])
+            ->orderBy('estimated_time', 'asc');
+
     }
 }

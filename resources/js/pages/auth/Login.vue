@@ -1,48 +1,72 @@
+
 <template>
-    <div>
-        <h2 class="text-center">Login</h2>
-        <div class="alert alert-danger" v-if="error">
-            <p>There was an error, unable to sign in with those credentials.</p>
+    <div class="login mt-5">
+        <div class="card">
+            <div class="card-header">
+                Login
+            </div>
+            <div class="card-body">
+                <form method="postn">
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input
+                                type="email"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors.email }"
+                                id="email"
+                                v-model="details.email"
+                                placeholder="Enter email"
+                        />
+                        <div class="invalid-feedback" v-if="errors.email">
+                            {{ errors.email[0] }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                                type="password"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors.password }"
+                                id="password"
+                                v-model="details.password"
+                                placeholder="Password"
+                        />
+                        <div class="invalid-feedback" v-if="errors.password">
+                            {{ errors.password[0] }}
+                        </div>
+                    </div>
+                    <button type="button" @click="login" class="btn btn-primary">
+                        Login
+                    </button>
+                </form>
+            </div>
         </div>
-        <form autocomplete="off" @submit.prevent="login" method="post">
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" v-model="password" required>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Sign in</button>
-        </form>
     </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex';
+
     export default {
         data(){
             return {
-                email: null,
-                password: null,
-                error: false
+              details: {
+                  email: null,
+                  password: null,
+              },
             }
         },
+        computed:  {
+            ...mapGetters(["errors"])
+        },
+        mounted() {
+          this.$store.commit("setErrors", {});
+        },
         methods: {
+            ...mapActions("auth", ["sendLoginRequest"]),
             login() {
-                // get the redirect object
-                var app = this
-                this.$auth.login({
-                    params: {
-                        email: app.email,
-                        password: app.password
-                    },
-                    success: function () {},
-                    error: function() {
-                        app.has_error = true
-                    },
-                    rememberMe: true,
-                    redirect: '/company',
-                    fetchUser: true,
+                this.sendLoginRequest(this.details).then(() => {
+                    this.$router.push({name: 'home'})
                 });
             },
         }

@@ -18,15 +18,16 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get('products', 'Api\ProductController@index');
-
+//Route::get('products', 'Api\ProductController@index');
+Route::get('home', 'HomeController@index');
+Route::get('gettask', 'HomeController@getTasks');
 
 Route::prefix('auth')->group(function () {
     // Below mention routes are public, user can access those without any restriction.
     // Create New User
     Route::post('register', 'AuthController@register');
     // Login User
-    Route::post('login', 'AuthController@login');
+    Route::post('/login', 'AuthController@login');
     // Refresh the JWT Token
     Route::get('refresh', 'AuthController@refresh');
 
@@ -68,5 +69,6 @@ Route::prefix('task')->group(function(){
     Route::post('delete', 'TaskController@deleteTask');
     Route::patch('updatestatus/{id}', 'TaskController@updateTaskStatus');
     Route::put('updateAll', 'TaskController@updateTaskOrder');
+    Route::get('getuser/{assign}', 'TaskController@assignTask');
 });
 

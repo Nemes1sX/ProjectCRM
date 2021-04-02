@@ -92,11 +92,21 @@ class TaskController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
-    private function minTasks($role)
+    private function assignTask($role)
     {
-        $user = User::withCount('tasks')->where('role', $role)->orderBy('tasks_count', 'asc')->first();
+        $user = User::addSelect([
+            'estimated_time' => Task::selectRaw('sum(estimated_time) as total')
+                ->whereColumn('user_id', 'users.id')
+                ->groupBy('user_id')
+        ])
+            ->where('role', $role)
+            ->orderBy('estimated_time', 'asc')
+            ->firstOrFail();
 
-        return $user->id;
+
+        return $user->estimated_time >= 18 ? null
+            : $user->id;
+
     }
 
     private function save(TaskRequest $request, Task $task)
@@ -108,8 +118,10 @@ class TaskController extends Controller
         $response = json_decode($response->body());
         $task->name = $request->name;
         $task->description = $request->description;
-        $task->user_id =  $this->minTasks($response->role);
+        $task->estimated_time = $request->estimated_time;
+        $task->user_id = !$this->assignTask($response->role) ? '' : $this->assignTask($response->role);
         $task->project_id = $request->project_id;
+        $task->status = !$task->user_id ? 1 : 0;
         $task->startdate = $request->startdate;
         $task->enddate = $request->enddate;
 

@@ -8,29 +8,61 @@
                     <p v-else>Error, unable to register at the moment. If the problem persists, please contact an administrator.</p>
                 </div>
                 <form autocomplete="off" @submit.prevent="register" v-if="!success" method="post">
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email">
-                        <span class="help-block" v-if="has_error && errors.email">{{ errors.email }}</span>
+                    <div class="form-group">
+                        <label for="email">Name</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors.name }"
+                                id="name"
+                                v-model="details.name"
+                                placeholder="Enter name"
+                        />
+                        <div class="invalid-feedback" v-if="errors.name">
+                            {{ errors.name[0] }}
+                        </div>
                     </div>
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.name }">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" class="form-control" placeholder="Name" v-model="name">
-                        <span class="help-block" v-if="has_error && errors.name">{{ errors.name }}</span>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input
+                                type="email"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors.email }"
+                                id="email"
+                                v-model="details.email"
+                                placeholder="Enter email"
+                        />
+                        <div class="invalid-feedback" v-if="errors.email">
+                            {{ errors.email[0] }}
+                        </div>
                     </div>
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
+                    <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" v-model="password">
-                        <span class="help-block" v-if="has_error && errors.password">{{ errors.password }}</span>
+                        <input
+                                type="password"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors.password }"
+                                id="password"
+                                v-model="details.password"
+                                placeholder="Password"
+                        />
+                        <div class="invalid-feedback" v-if="errors.password">
+                            {{ errors.password[0] }}
+                        </div>
                     </div>
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
-                        <label for="password_confirmation">Password confirmation</label>
-                        <input type="password" id="password_confirmation" class="form-control" v-model="password_confirmation">
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirm password</label>
+                        <input
+                                type="password"
+                                class="form-control"
+                                id="password_confirmation"
+                                v-model="details.password_confirmation"
+                                placeholder="Confirm password"
+                        />
                     </div>
-                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.role }">
+                    <div class="form-group">
                         <label for="role">Choose role</label>
-                        <select id="role" class="form-control" v-model="role">
-                            <option value="S"
+                        <select id="role" class="form-control" v-model="details.role">
                             <option value="Software engineer">Software engineer</option>
                             <option value="IT engineer">IT engineer</option>
                             <option value="Manager">Manager</option>
@@ -43,43 +75,35 @@
     </div>
 </template>
 <script>
+import {mapGetters, mapActions} from "vuex";
+
     export default {
         data() {
             return {
-                name: '',
-                email: '',
-                password: '',
-                password_confirmation: '',
-                role: '',
-                has_error: false,
-                error: '',
-                errors: {},
-                success: false
-            }
+              details: {
+                  name: '',
+                  email: '',
+                  password: '',
+                  password_confirmation: '',
+                  role: '',
+              }
+            };
         },
+        computed: {
+            ...mapGetters(["errors"])
+        },
+        mounted(){
+            this.$store.commit("setErrors", {})
+        },
+
         methods: {
+            ...mapActions("auth", ["sendRegisterRequest"]),
+
             register() {
-                var app = this
-                this.$auth.register({
-                    data: {
-                        email: app.email,
-                        name: app.name,
-                        password: app.password,
-                        password_confirmation: app.password_confirmation,
-                        role: app.role
-                    },
-                    success: function () {
-                        app.success = true
-                        this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
-                    },
-                    error: function (res) {
-                        console.log(res.response.data.errors)
-                        app.has_error = true
-                        app.error = res.response.data.error
-                        app.errors = res.response.data.errors || {}
-                    }
-                })
+                this.sendRegisterRequest(this.details).then(() =>{
+                    this.$router.push({name: 'home'})
+                });
             }
-        }
+            }
     }
 </script>
