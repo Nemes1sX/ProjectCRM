@@ -27,8 +27,7 @@ class AddRolesStatusToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('string');
-            $table->dropColumn('role');
+            $table->dropColumn('status', 'role');
         });
     }
 }

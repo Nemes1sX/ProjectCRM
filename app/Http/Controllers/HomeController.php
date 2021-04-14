@@ -11,11 +11,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-       $tasksToDo = Task::where('status', '=', 0)->count();
-       $tasksInProgress = Task::where('status', '=', 1)->count();
-       $tasksCompleted = Task::where('status', '=', 2)->count();
+       $tasksBacklog = Task::where('status', '=', 0)->count();
+       $tasksToDo = Task::where('status', '=', 1)->count();
+       $tasksInProgress = Task::where('status', '=', 2)->count();
+        $tasksCompleted = Task::where('status', '=', 3)->count();
+
 
         return response()->json(['status' => 'success',
+            'tasksBacklog' => $tasksBacklog,
             'tasksToDo' => $tasksToDo,
             'tasksInProgress' => $tasksInProgress,
             'tasksCompleted' => $tasksCompleted,

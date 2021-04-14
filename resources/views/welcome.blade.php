@@ -12,7 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <link href="{{ mix('css/app.css')}}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
 

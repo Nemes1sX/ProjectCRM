@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-3 col-md-offset-2">
             <section class="list">
-                <header>TO DO</header>
-                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" v-model="tasksNotCompleted" :tag="'article'" @add="onAdd($event, false)"  @change="update">
-                    <article class="card" v-for="(task, index) in tasksToDo" :key="tasksToDo.id" :data-id="task.id">
+                <header>BACKLOG</header>
+                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" v-model="tasksBacklog" :tag="'article'" @add="onAdd($event, 0)"  @change="update">
+                    <article class="card" v-for="(task, index) in tasksBacklog" :key="tasksBacklog.id" :data-id="task.id">
                         <header>
                             {{ task.name }}
                         </header>
@@ -16,7 +16,7 @@
         <div class="col-md-3 col-md-offset-2">
             <section class="list">
                 <header>TO DO</header>
-                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" v-model="tasksNotCompleted" :tag="'article'" @add="onAdd($event, false)"  @change="update">
+                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" v-model="tasksToDo" :tag="'article'" @add="onAdd($event, 1)"  @change="update">
                     <article class="card" v-for="(task, index) in tasksToDo" :key="tasksToDo.id" :data-id="task.id">
                         <header>
                             {{ "T"+task.id}}
@@ -32,7 +32,7 @@
         <div class="col-md-3">
             <section class="list">
                 <header>IN PROGRESS</header>
-                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" :tag="'article'" v-model="tasksInProgress" @add="onAdd($event, true)"  @change="update">
+                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" :tag="'article'" v-model="tasksInProgress" @add="onAdd($event, 2)"  @change="update">
                     <article class="card" v-for="(task, index) in tasksInProgress" :key="tasksInProgress.id" :data-id="task.id">
                         <header>
                             {{ "T"+task.id}}
@@ -48,7 +48,7 @@
         <div class="col-md-3">
             <section class="list">
                 <header>COMPLETED</header>
-                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" :tag="'article'" v-model="tasksCompleted" @add="onAdd($event, true)"  @change="update">
+                <draggable class="drag-area"  v-bind="{animation:200, group:'status'}" :tag="'article'" v-model="tasksCompleted" @add="onAdd($event, 3)"  @change="update">
                     <article class="card" v-for="(task, index) in tasksCompleted" :key="tasksCompleted.id" :data-id="task.id">
                         <header>
                             {{ "T"+task.id}}

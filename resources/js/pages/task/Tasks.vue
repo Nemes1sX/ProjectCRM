@@ -41,10 +41,12 @@
               <tr v-for="task in tasks" :key="task.id">
                   <td>{{ task.name }}</td>
                   <td>{{ task.description }}</td>
-                  <td v-if="task.status === 0">To-do</td>
-                  <td v-else-if="task.status === 1">In progress</td>
-                  <td v-else-if="task.status === 2">Completed</td>
+                  <td v-if="task.status === 0">Backlog</td>
+                  <td v-else-if="task.status === 1">To-do</td>
+                  <td v-else-if="task.status === 2">In progress</td>
+                  <td v-else-if="task.status === 3">Completed</td>
                   <td v-else>Undefined</td>
+                  <td>{{ task.estimated_time}}</td>
                   <td>{{ task.project.name }}</td>
                   <td>{{ task.user.name }}</td>
                   <td>{{ task.user.role}}</td>
