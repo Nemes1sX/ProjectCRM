@@ -10,6 +10,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import App from './components/App.vue'
 import router from './routes/index'
 import store from './store'
+import i18n from './i18n'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -50,10 +51,10 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 Vue.use(FullCalendar);
 
-
 const app = new Vue({
     el: '#app',
     components: { App },
     router,
-    store
+    store,
+    i18n
 })

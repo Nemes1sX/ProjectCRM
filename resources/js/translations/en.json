@@ -1,0 +1,20 @@
+{
+    "app_name": "Project",
+    "about": "About",
+    "backlog_tasks": "Backlog tasks",
+    "to_do_tasks": "To-do tasks",
+    "in_progress_tasks": "In progress tasks",
+    "completed_tasks": "Completed tasks",
+    "contact": "Contact",
+    "toggle_sidebar": "Toggle Sidebar",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "companies": "Companies",
+    "projects": "Projects",
+    "settings": "Settings",
+    "tasks": "Tasks",
+    "calendar": "Calendar",
+    "home": "Home",
+    "toggle_side": "Toggle sidebar"
+  }

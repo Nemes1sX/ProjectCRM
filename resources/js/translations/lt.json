@@ -1,0 +1,21 @@
+{
+  "app_name": "Projektas",
+  "about": "Apie",
+  "backlog_tasks": "Stalčiaus užduotys",
+  "to_do_tasks": "Atliekamos užduotys",
+  "in_progress_tasks": "Progresuojančios užduotys",
+  "completed_tasks": "Atliktos užduotys",
+  "contact": "Kontaktai",
+  "toggle_sidebar": "Meniu",
+  "login": "Prisijungti",
+  "logout": "Atsijungti",
+  "register": "Registracija",
+  "settings": "Paskyros nustatymai",
+  "companies": "Kompanijos/Klientai",
+  "projects": "Projektai",
+  "tasks": "Užduotys",
+  "calendar": "Kalendorius",
+  "home": "Pradinis puslapis",
+  "toggle_side": "Šoninis meniu"
+
+}
