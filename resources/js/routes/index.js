@@ -18,30 +18,38 @@ import Tasks from '../pages/task/Tasks.vue'
 import TaskBoard from '../pages/task/TaskBoard.vue'
 import TaskAdd from '../pages/task/TaskAdd.vue'
 
+const guest = (to, from, next) => {
+    if (!localStorage.getItem("authToken")) {
+        return next ();
+    } else {
+        return next("/");
+    }
+};
+const auth  =  (to, from, next) => {
+    if (localStorage.getItem("authToken")) {
+        return next();
+    } else {
+        return next("/login");
+    }
+};
+
 const routes =  [
         {
             path: '/register',
             name: 'register',
+            beforeEnter: guest,
             component: Register,
-            meta: {
-                auth: false
-            }
         },
         {
             path: '/login',
             name: 'login',
+            beforeEnter: guest,
             component: Login,
-            meta: {
-                auth: false
-            }
         },
         {
             path: '/',
             name: 'home',
             component: Homepage,
-            /*meta: {
-                auth: undefined
-            }*/
         },
         {
             path: '/about',
@@ -56,16 +64,19 @@ const routes =  [
         {
             path: '/company',
             name:  'company',
+            beforeEnter: auth,
             component: Companies,
         },
         {
             path: '/create',
             name: 'company.create',
+            beforeEnter: auth,
             component: CreateCompany,
         },
         {
             path: '/company/edit',
             name: 'company.edit',
+            beforeEnter: auth,
             component: CreateCompany,
 
         },
@@ -77,22 +88,26 @@ const routes =  [
         {
             path: '/projects',
             name: 'projects',
+            beforeEnter: auth,
             component: Projects,
         },
         {
             path: '/projects/create',
             name: 'project.create',
+            beforeEnter: auth,
             component: CreateProject,
         },
         {
             path: '/projects/edit',
             name: 'project.edit',
+            beforeEnter: auth,
             component: CreateProject,
         },
         {
           path: '/taskboard/:id',
           name: 'task.board',
-          component: TaskBoard,
+            beforeEnter: auth,
+            component: TaskBoard,
             props: true,
         },
         {
@@ -103,20 +118,20 @@ const routes =  [
         {
             path: '/tasks',
             name: 'tasks',
+            beforeEnter: auth,
             component: Tasks,
-           /* meta: {
-                auth: true,
-            }*/
         },
         {
             path: '/task/create',
             name: 'task.create',
+            beforeEnter: auth,
             component: TaskAdd
         },
 
         {
             path: '/task/edit',
             name: 'task.edit',
+            beforeEnter: auth,
             component: TaskAdd,
         },
     {
