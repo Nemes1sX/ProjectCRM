@@ -25,6 +25,11 @@
                     <span v-if="this.params.sort_field == 'status' && this.params.sort_direction == 'asc'">&#8593;</span>
                     <span v-if="this.params.sort_field == 'status' && this.params.sort_direction == 'desc'">&#8595;</span>
                 </th>
+                <th>
+                    <a href="#" @click.prevent="change_sort('estimated_time')">Estimated time</a>
+                    <span v-if="this.params.sort_field == 'status' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'status' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
                 <th>Project</th>
                 <th>Assigned user</th>
                 <th>User role</th>
