@@ -19,7 +19,7 @@ class TaskController extends Controller
     {
 
         $sortField = request('sort_field', 'name');
-        if(!in_array($sortField, ['name', 'description', 'status', 'startdate', 'enddate'])){
+        if(!in_array($sortField, ['name', 'description', 'status', 'startdate', 'enddate', 'id'])){
             $sortField = 'created_at';
         }
         $sortDirection = request('sort_direction', 'desc');

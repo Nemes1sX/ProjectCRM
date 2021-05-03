@@ -6,6 +6,11 @@
             <thead>
             <tr>
                 <th>
+                    <a href="#" @click.prevent="change_sort('id')">ID</a>
+                    <span v-if="this.params.sort_field == 'id' && this.params.sort_direction == 'asc'">&#8593;</span>
+                    <span v-if="this.params.sort_field == 'id' && this.params.sort_direction == 'desc'">&#8595;</span>
+                </th>
+                <th>
                     <a href="#" @click.prevent="change_sort('name')">Name</a>
                     <span v-if="this.params.sort_field == 'name' && this.params.sort_direction == 'asc'">&#8593;</span>
                     <span v-if="this.params.sort_field == 'name' && this.params.sort_direction == 'desc'">&#8595;</span>
@@ -39,6 +44,7 @@
             <tbody>
 
               <tr v-for="task in tasks" :key="task.id">
+                  <td>{{ "T"+task.id }}</td>
                   <td>{{ task.name }}</td>
                   <td>{{ task.description }}</td>
                   <td v-if="task.status === 0">Backlog</td>
