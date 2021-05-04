@@ -18,7 +18,7 @@ export default {
     },
 
     actions: {
-        gerUserData({ commit }){
+        getUserData({ commit }){
             axios
                 .get(`${process.env.MIX_APP_URL}/api/auth/` + 'user')
                 .then(response => {
@@ -42,7 +42,7 @@ export default {
             return axios
                 .post(`${process.env.MIX_APP_URL}/api/auth/` + 'register', data)
                 .then(response => {
-                   commit("setUserData", response.data.user)
+                   commit("setUserData", response.data.user);
                     localStorage.setItem('authToken', response.data.token);
                 });
         },

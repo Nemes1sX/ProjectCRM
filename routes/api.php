@@ -32,7 +32,7 @@ Route::prefix('auth')->group(function () {
     Route::get('refresh', 'AuthController@refresh');
 
     // Below mention routes are available only for the authenticated users.
-    Route::middleware('auth:api')->group(function () {
+    Route::group(['middleware' => ['auth:api']], function () {
         // Get user info
         Route::get('user', 'AuthController@user');
         // Logout user from application

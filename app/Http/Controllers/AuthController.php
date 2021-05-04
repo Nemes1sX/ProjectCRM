@@ -51,11 +51,7 @@ class AuthController extends Controller
      */
     public function user()
     {
-        $user = auth()->id();
-        return response()->json([
-            'status' => 'success',
-            'data' => $user
-        ]);
+        return auth()->user();
     }
     /**
      * Refresh JWT token
